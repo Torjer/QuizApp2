@@ -1,182 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:padding="10dp"
         android:text="OPTIONS"
-        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:padding="10dp"
         android:textSize="20dp"
-        android:textStyle="bold" />
-
+        android:layout_margin="8dp"
+        android:textAllCaps="true"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:padding="10dp"
         android:text="Categories:"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:padding="10dp"/>
 
     <CheckBox
+        android:id="@+id/all_checkb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:checked="true"
+        android:text="All categories"
         android:padding="10dp"
-        android:text="All categories" />
+        android:layout_margin="8dp"
+        android:checked="true"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="Art" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="Science" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="History" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="Literature" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="Movies" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="10dp"
-                android:text="Geography" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:padding="10dp">
-
-        <TextView
+        <CheckBox
+            android:id="@+id/art_checkb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Art"
             android:padding="10dp"
-            android:text="Question number:"
-            android:textSize="16dp"
-            android:textStyle="bold" />
+            android:checked="true"/>
 
-        <Spinner
-            android:layout_width="100dp"
+        <CheckBox
+            android:id="@+id/science_checkb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp" />
+            android:text="Science"
+            android:padding="10dp"
+            android:checked="true"/>
+
+        <CheckBox
+            android:id="@+id/history_checkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="History"
+            android:padding="10dp"
+            android:checked="true"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
+
+        <CheckBox
+            android:id="@+id/literature_checkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Literature"
+            android:padding="10dp"
+            android:checked="true"/>
+
+        <CheckBox
+            android:id="@+id/movies_checkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movies"
+            android:padding="10dp"
+            android:checked="true"/>
+
+        <CheckBox
+            android:id="@+id/geography_checkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Geography"
+            android:padding="10dp"
+            android:checked="true"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question number:"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:padding="10dp"/>
+
+    <Spinner
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:dropDownSelector="20sp"
+        />
+
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
         android:layout_weight="1"
+        android:orientation="horizontal"
         android:gravity="left"
-        android:orientation="horizontal">
+        android:layout_margin="8dp">
 
         <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="202dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:text="Question Level:"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
             <RadioButton
+                android:id="@+id/easy_radiob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:checked="true"
+                android:padding="8dp"
                 android:text="Easy" />
 
             <RadioButton
+                android:id="@+id/medium_radiob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:text="Medium" />
 
             <RadioButton
+                android:id="@+id/hard_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:text="Hard" />
         </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="left"
+        android:layout_margin="8dp">
 
-        <Button
-            android:id="@+id/save_button"
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save_text" />
-
-        <Button
-            android:id="@+id/cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel_text" />
+            android:text="Hints:   "
+            android:textSize="16dp"
+            android:padding="10dp"/>
     </LinearLayout>
+
 </LinearLayout>
