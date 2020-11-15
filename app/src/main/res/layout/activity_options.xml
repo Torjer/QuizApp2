@@ -114,29 +114,29 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Question number:"
+        android:text="No. of questions:"
         android:textStyle="bold"
         android:textSize="16dp"
         android:padding="10dp"/>
 
     <Spinner
+        android:id="@+id/qnumber_spinner"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:dropDownSelector="20sp"
         />
 
 </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="150dp"
         android:orientation="horizontal"
         android:gravity="left"
         android:layout_margin="8dp">
 
         <RadioGroup
+            android:id="@+id/levels_radiogroup"
             android:layout_width="wrap_content"
             android:layout_height="202dp">
 
@@ -187,6 +187,43 @@
             android:text="Hints:   "
             android:textSize="16dp"
             android:padding="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. of hints:"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:padding="10dp"/>
+
+        <Spinner
+            android:id="@+id/hnumber_spinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="8dp">
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:padding="10dp"
+            android:textSize="16dp"/>
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:padding="10dp"
+            android:textSize="16dp"/>
     </LinearLayout>
 
 </LinearLayout>
