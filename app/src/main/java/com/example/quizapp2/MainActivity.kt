@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var  playButton : Button
     private lateinit var setButton : Button
-    lateinit var categories : String
+    private var categories : String = "Hola"
     private var difficulty : Int = 0
     private var nquestions : Int = 0
     private var ghints : Boolean = false
@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         setButton = findViewById(R.id.settings_button)
 
         playButton.setOnClickListener { _ ->
-
         }
 
         setButton.setOnClickListener { _ ->
