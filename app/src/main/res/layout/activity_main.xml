@@ -9,9 +9,9 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/LogoTemp"/>
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/LogoQuizApp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
