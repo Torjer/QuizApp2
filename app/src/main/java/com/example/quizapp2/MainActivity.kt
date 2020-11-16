@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         setButton.setOnClickListener { _ ->
             startActivityForResult(
-                Options.createIntent(this),
+                Options.createIntent(this,difficulty),
                 OPTIONS_ACTIVITY_REQUEST_CODE
             )
         }

@@ -18,8 +18,9 @@ class Options : AppCompatActivity() {
         const val EXTRA_QUESTION_NUMBERS = "com.example.quizapp2.question_number"
         const val EXTRA_HINT_OPTION = "com.example.quizapp2.hint_option"
 
-        fun createIntent(packageContext: Context):Intent{
+        fun createIntent(packageContext: Context, difficulty: Int):Intent{
             return Intent(packageContext, Options::class.java).apply{
+                putExtra(EXTRA_DIFFICULTY_LEVEL,difficulty)
             }
         }
     }
@@ -41,6 +42,14 @@ class Options : AppCompatActivity() {
         normalRadio = findViewById(R.id.medium_radiob)
         hardRadio = findViewById(R.id.hard_rb)
 
+        val getDifficulty = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
+
+        when(getDifficulty){
+            0 -> easyRadio.isChecked = true
+            1 -> normalRadio.isChecked = true
+            2 -> hardRadio.isChecked = true
+        }
+
         saveButton.setOnClickListener { _ ->
             setResult(RESULT_SETTINGS_CONFIG,Intent().apply {
                 putExtra(EXTRA_CATEGORIES_TEXT, "Hola")
@@ -52,6 +61,11 @@ class Options : AppCompatActivity() {
     }
     fun onDifficultyChange(view: View){
         val difficultyRadio = view as RadioButton
-        diffID = difficultyRadio.id
+        val checked = difficultyRadio.isChecked
+        when(difficultyRadio.id){
+            easyRadio.id -> if(checked){diffID = 0}
+            normalRadio.id -> if(checked){diffID = 1}
+            hardRadio.id -> if(checked){diffID = 2}
+        }
     }
 }
