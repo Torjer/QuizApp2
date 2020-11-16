@@ -1,16 +1,13 @@
 package com.example.quizapp2
 
 import android.content.Context
-import android.widget.CheckBox
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.TextView
+import android.widget.*
 
-class Options : AppCompatActivity() {
+class Options : AppCompatActivity(){
     companion object{
         const val RESULT_SETTINGS_CONFIG = RESULT_FIRST_USER
 
@@ -39,11 +36,21 @@ class Options : AppCompatActivity() {
     private lateinit var easyRadio : RadioButton
     private lateinit var normalRadio : RadioButton
     private lateinit var hardRadio : RadioButton
+    private lateinit var spinQnum : Spinner
+
     private var diffID : Int = 0
+    private var selectedCat : Int = 6
+    private var items= mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
+
+        var i : Int = 5
+        while (i<=(selectedCat*5)){
+            items.add(i.toString())
+            i++
+        }
 
         allCheckB = findViewById(R.id.all_checkb)
         artCheckB = findViewById(R.id.art_checkb)
@@ -58,81 +65,10 @@ class Options : AppCompatActivity() {
         easyRadio = findViewById(R.id.easy_radiob)
         normalRadio = findViewById(R.id.medium_radiob)
         hardRadio = findViewById(R.id.hard_rb)
+        spinQnum = findViewById(R.id.qnumber_spinner)
+
 
         val getDifficulty = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
-
-        //Lógica de habilitación de Checkboxes
-        allCheckB.setOnClickListener {
-            if (allCheckB.isChecked == true) {
-                artCheckB.isChecked = true
-                scienceCheckB.isChecked = true
-                historyCheckB.isChecked = true
-                literatureCheckB.isChecked = true
-                moviesCheckB.isChecked = true
-                geographyCheckB.isChecked = true
-                allCheckB.isEnabled = false
-            }
-        }
-
-        artCheckB.setOnClickListener {
-            if (artCheckB.isChecked == false) {
-                allCheckB.isChecked = false
-                allCheckB.isEnabled = true
-            } else if (scienceCheckB.isChecked == true && historyCheckB.isChecked == true && literatureCheckB.isChecked == true && moviesCheckB.isChecked == true && geographyCheckB.isChecked == true) {
-                allCheckB.isChecked = true
-                allCheckB.isEnabled = false
-            }
-        }
-
-        scienceCheckB.setOnClickListener {
-            if (scienceCheckB.isChecked == false) {
-                allCheckB.isChecked = false
-                allCheckB.isEnabled = true
-            } else if (artCheckB.isChecked == true && historyCheckB.isChecked == true && literatureCheckB.isChecked == true && moviesCheckB.isChecked == true && geographyCheckB.isChecked == true) {
-                allCheckB.isChecked = true
-                allCheckB.isEnabled = false
-            }
-        }
-
-        historyCheckB.setOnClickListener {
-            if (historyCheckB.isChecked == false) {
-                allCheckB.isChecked = false
-                allCheckB.isEnabled = true
-            } else if (scienceCheckB.isChecked == true && artCheckB.isChecked == true && literatureCheckB.isChecked == true && moviesCheckB.isChecked == true && geographyCheckB.isChecked == true) {
-                allCheckB.isChecked = true
-                allCheckB.isEnabled = false
-            }
-        }
-
-        literatureCheckB.setOnClickListener {
-            if (literatureCheckB.isChecked == false) {
-                allCheckB.isChecked = false
-                allCheckB.isEnabled = true
-            } else if (scienceCheckB.isChecked == true && historyCheckB.isChecked == true && artCheckB.isChecked == true && moviesCheckB.isChecked == true && geographyCheckB.isChecked == true) {
-                allCheckB.isChecked = true
-                allCheckB.isEnabled = false
-            }
-        }
-
-        moviesCheckB.setOnClickListener {
-            if (moviesCheckB.isChecked == false) {
-                allCheckB.isChecked = false
-                allCheckB.isEnabled = true
-            } else if (scienceCheckB.isChecked == true && historyCheckB.isChecked == true && literatureCheckB.isChecked == true && artCheckB.isChecked == true && geographyCheckB.isChecked == true) {
-                allCheckB.isChecked = true
-                allCheckB.isEnabled = false
-            }
-        }
-
-        geographyCheckB.setOnClickListener {
-            if (geographyCheckB.isChecked == false) {
-                allCheckB.isChecked = false
-                allCheckB.isEnabled = true
-            } else if (scienceCheckB.isChecked == true && historyCheckB.isChecked == true && literatureCheckB.isChecked == true && moviesCheckB.isChecked == true && artCheckB.isChecked == true) {
-                allCheckB.isChecked = true
-                allCheckB.isEnabled = false
-            }
-        }
 
         when(getDifficulty){
             0 -> easyRadio.isChecked = true
@@ -147,6 +83,7 @@ class Options : AppCompatActivity() {
                 putExtra(EXTRA_QUESTION_NUMBERS,6)
                 putExtra(EXTRA_HINT_OPTION,true)
             })
+            finish()
         }
     }
     fun onDifficultyChange(view: View){
@@ -156,6 +93,38 @@ class Options : AppCompatActivity() {
             easyRadio.id -> if(checked){diffID = 0}
             normalRadio.id -> if(checked){diffID = 1}
             hardRadio.id -> if(checked){diffID = 2}
+        }
+    }
+
+    fun onCategoryClick(view: View){
+        val categoryCheck = view as CheckBox
+        val checked = categoryCheck.isChecked
+        when(categoryCheck.id){
+            allCheckB.id -> (if(checked){
+                artCheckB.isChecked = true
+                scienceCheckB.isChecked = true
+                historyCheckB.isChecked = true
+                literatureCheckB.isChecked = true
+                moviesCheckB.isChecked = true
+                geographyCheckB.isChecked = true
+                allCheckB.isEnabled = false
+                selectedCat = 6
+            })
+            else -> if(checked){
+                selectedCat++
+                if(selectedCat==6){
+                    allCheckB.isChecked = true
+                    allCheckB.isEnabled = false
+                }
+            } else{
+                selectedCat--
+                allCheckB.isEnabled = true
+                allCheckB.isChecked = false
+            }
+        }
+        if(selectedCat==0){
+            selectedCat++
+            categoryCheck.isChecked = true
         }
     }
 }
