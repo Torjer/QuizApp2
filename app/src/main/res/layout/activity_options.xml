@@ -1,140 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".Options">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/options_text"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:textSize="20sp"
         android:layout_margin="8dp"
-        android:textAllCaps="true"/>
+        android:padding="10dp"
+        android:text="@string/options_text"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
+        android:padding="10dp"
         android:text="@string/categories_text"
-        android:textSize="16sp"
-        android:padding="10dp"/>
+        android:textSize="16sp" />
 
     <CheckBox
         android:id="@+id/all_checkb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/all_text"
-        android:padding="10dp"
         android:layout_margin="8dp"
-        android:checked="true"/>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:orientation="horizontal"
-    android:baselineAligned="false">
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_margin="8dp">
-
-        <CheckBox
-            android:id="@+id/art_checkb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/art_text"
-            android:padding="10dp"
-            android:checked="true"/>
-
-        <CheckBox
-            android:id="@+id/science_checkb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/science_text"
-            android:padding="10dp"
-            android:checked="true"/>
-
-        <CheckBox
-            android:id="@+id/history_checkb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/history_text"
-            android:padding="10dp"
-            android:checked="true"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_margin="8dp">
-
-        <CheckBox
-            android:id="@+id/literature_checkb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/literature_text"
-            android:padding="10dp"
-            android:checked="true"/>
-
-        <CheckBox
-            android:id="@+id/movies_checkb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movies_text"
-            android:padding="10dp"
-            android:checked="true"/>
-
-        <CheckBox
-            android:id="@+id/geography_checkb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/geography_text"
-            android:padding="10dp"
-            android:checked="true"/>
-
-    </LinearLayout>
-
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="right"
-    android:padding="10dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/qnumber_text"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:padding="10dp"/>
-
-    <Spinner
-        android:id="@+id/qnumber_spinner"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:checked="true"
         android:padding="10dp"
-        />
-
-</LinearLayout>
+        android:text="@string/all_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/art_checkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="@string/art_text" />
+
+            <CheckBox
+                android:id="@+id/science_checkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="@string/science_text" />
+
+            <CheckBox
+                android:id="@+id/history_checkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="@string/history_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/literature_checkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="@string/literature_text" />
+
+            <CheckBox
+                android:id="@+id/movies_checkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="@string/movies_text" />
+
+            <CheckBox
+                android:id="@+id/geography_checkb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="10dp"
+                android:text="@string/geography_text" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/qnumber_text"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/qnumber_spinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
         android:gravity="left"
-        android:layout_margin="8dp">
+        android:orientation="horizontal">
 
         <RadioGroup
             android:id="@+id/levels_radiogroup"
@@ -144,6 +145,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onDifficultyChange"
                 android:padding="8dp"
                 android:text="@string/levels_text"
                 android:textSize="16sp"
@@ -154,6 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:onClick="onDifficultyChange"
                 android:padding="8dp"
                 android:text="@string/easy_text" />
 
@@ -161,6 +164,7 @@
                 android:id="@+id/medium_radiob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onDifficultyChange"
                 android:padding="8dp"
                 android:text="@string/medium_text" />
 
@@ -168,6 +172,7 @@
                 android:id="@+id/hard_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onDifficultyChange"
                 android:padding="8dp"
                 android:text="@string/hard_text" />
         </RadioGroup>
@@ -176,55 +181,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
         android:gravity="left"
-        android:layout_margin="8dp">
+        android:orientation="horizontal">
 
         <Switch
             android:id="@+id/hint_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="@string/hints_text"
-            android:textSize="16sp"
-            android:padding="10dp"/>
+            android:textSize="16sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="@string/hnumber_text"
-            android:textStyle="bold"
             android:textSize="16sp"
-            android:padding="10dp"/>
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/hnumber_spinner"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            />
+            android:padding="10dp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:layout_margin="8dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save_text"
             android:padding="10dp"
-            android:textSize="16sp"/>
+            android:text="@string/save_text"
+            android:textSize="16sp" />
+
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel_text"
             android:padding="10dp"
-            android:textSize="16sp"/>
+            android:text="@string/cancel_text"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>
