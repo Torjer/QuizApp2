@@ -165,7 +165,8 @@ class Options : AppCompatActivity() {
     }
 
     fun onHintSwitchChange(view: View) {
-        spinHnum.isEnabled = !spinHnum.isEnabled
+       spinHnum.isEnabled = !spinHnum.isEnabled
+
     }
 
 }
