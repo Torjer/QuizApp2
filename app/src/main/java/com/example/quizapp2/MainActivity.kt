@@ -30,9 +30,8 @@ class MainActivity : AppCompatActivity() {
         setButton = findViewById(R.id.settings_button)
 
         playButton.setOnClickListener { _ ->
-            Toast.makeText(this, difficulty.toString(),Toast.LENGTH_SHORT).show()
             startActivityForResult(
-                Game.createIntent(this,difficulty),
+                Game.createIntent(this,"categories",difficulty,nquestions,ghints),
                 GAME_ACTIVITY_REQUEST_CODE
             )
         }
