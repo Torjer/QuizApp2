@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  playButton : Button
     private lateinit var setButton : Button
 
-    private lateinit var categories : String
+    private var categories : String = "All"
     private var difficulty : Int = 0
     private var nquestions : Int = 0
-    private var ghints : Boolean = false
+    private var ghints : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         playButton.setOnClickListener { _ ->
             startActivityForResult(
-                Game.createIntent(this,"categories",difficulty,nquestions,ghints),
+                Game.createIntent(this,categories,difficulty,nquestions,ghints),
                 GAME_ACTIVITY_REQUEST_CODE
             )
         }
@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
                         categories = data!!.getStringExtra(Options.EXTRA_CATEGORIES_TEXT).toString()
                         difficulty = data.getIntExtra(Options.EXTRA_DIFFICULTY_LEVEL,0)
                         nquestions = data.getIntExtra(Options.EXTRA_QUESTION_NUMBERS,5)
-                        ghints = data.getBooleanExtra(Options.EXTRA_HINT_OPTION,false)
+                        ghints = data.getIntExtra(Options.EXTRA_HINT_OPTION,0)
+                        Toast.makeText(this,categories, Toast.LENGTH_SHORT).show()
                     }
                 }
 

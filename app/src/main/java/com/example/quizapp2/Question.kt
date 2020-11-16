@@ -1,3 +1,3 @@
 package com.example.quizapp2
 
-class Question(category: Int, resID: Int, answer: Int)
+class Question(category: String, resID: Int, answer: Int)
