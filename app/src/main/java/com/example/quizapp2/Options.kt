@@ -40,6 +40,7 @@ class Options : AppCompatActivity() {
 
     private var categories: String = "All"
     private var diffID: Int = 0
+    private var hintNum: Int = 0
     private var selectedCat: Int = 6
     private var items = mutableListOf<String>()
     private var i: Int = 5
@@ -92,7 +93,7 @@ class Options : AppCompatActivity() {
                 putExtra(EXTRA_CATEGORIES_TEXT, sendCat)
                 putExtra(EXTRA_DIFFICULTY_LEVEL, diffID)
                 putExtra(EXTRA_QUESTION_NUMBERS, spinQnum.selectedItemId+5)
-                putExtra(EXTRA_HINT_OPTION, if (hintSwitch.isChecked) {spinHnum.selectedItemId + 1} else {0})
+                putExtra(EXTRA_HINT_OPTION, if (hintSwitch.isChecked) {spinHnum.selectedItemPosition + 1} else {0})
             })
             finish()
         }
@@ -165,8 +166,7 @@ class Options : AppCompatActivity() {
     }
 
     fun onHintSwitchChange(view: View) {
-       spinHnum.isEnabled = !spinHnum.isEnabled
-
+        spinHnum.isEnabled = !spinHnum.isEnabled
     }
 
 }
