@@ -44,6 +44,7 @@ class Options : AppCompatActivity(){
     private lateinit var spinHnum: Spinner
 
     private var diffID : Int = 0
+    private var ghints : Int = 0
     private var selectedCat : Int = 6
     private var items= mutableListOf<String>()
     private var i : Int = 5
@@ -93,9 +94,13 @@ class Options : AppCompatActivity(){
             setResult(RESULT_SETTINGS_CONFIG,Intent().apply {
                 putExtra(EXTRA_CATEGORIES_TEXT, "Hola")
                 putExtra(EXTRA_DIFFICULTY_LEVEL, diffID)
-                putExtra(EXTRA_QUESTION_NUMBERS,6)
-                putExtra(EXTRA_HINT_OPTION,true)
+                putExtra(EXTRA_QUESTION_NUMBERS,spinQnum.selectedItem as String)
+                putExtra(EXTRA_HINT_OPTION,if(hintSwitch.isChecked){spinHnum.selectedItemId+1}else{0})
             })
+            finish()
+        }
+
+        cancelButton.setOnClickListener{ _ ->
             finish()
         }
 
@@ -152,7 +157,8 @@ class Options : AppCompatActivity(){
     }
 
     fun onHintSwitchChange(view: View){
-        if(hintSwitch.isChecked) {spinHnum.isEnabled = true} else {spinHnum.isEnabled = false}
+        //if(hintSwitch.isChecked) { spinHnum.isEnabled = true } else { spinHnum.isEnabled = false }
+        spinHnum.isEnabled = !spinHnum.isEnabled
     }
 
 }
