@@ -69,14 +69,18 @@ class Game : AppCompatActivity() {
 
         hintButton = findViewById(R.id.hint_button)
         selCategories = EXTRA_CATEGORIES_TEXT.toString().split(",").map{it.trim()}
-        val getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
+        var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         if(getHints == 0){
             hintButton.setVisibility(View.INVISIBLE)
         }
         else {hintButton.setVisibility(View.VISIBLE)}
 
         hintButton.setOnClickListener{_->
-
+            getHints = getHints -1
+            if(getHints < 1){
+                !hintButton.isEnabled
+            }
+            else {hintButton.isEnabled}
         }
     }
 }
