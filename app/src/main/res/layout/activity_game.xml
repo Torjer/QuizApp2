@@ -119,8 +119,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:drawableLeft="@drawable/ic_prev"
-                android:text="@string/prev_text" />
+                android:text="@string/prev_text"
+                android:drawableLeft="@drawable/ic_prev"/>
 
 
         </LinearLayout>
