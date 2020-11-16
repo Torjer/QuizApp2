@@ -82,5 +82,6 @@ class Game : AppCompatActivity() {
             }
             else {hintButton.isEnabled}
         }
+
     }
 }
