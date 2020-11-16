@@ -33,20 +33,25 @@ class Options : AppCompatActivity(){
 
     private lateinit var saveButton : Button
     private lateinit var cancelButton : Button
+
     private lateinit var easyRadio : RadioButton
     private lateinit var normalRadio : RadioButton
     private lateinit var hardRadio : RadioButton
+
+    private lateinit var hintSwitch : Switch
+
     private lateinit var spinQnum : Spinner
+    private lateinit var spinHnum: Spinner
 
     private var diffID : Int = 0
     private var selectedCat : Int = 6
     private var items= mutableListOf<String>()
     private var i : Int = 5
+    private var hintsItems = listOf<Int>(1, 2, 3)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
-
 
         while (i<=(selectedCat*5)){
             items.add(i.toString())
@@ -63,12 +68,18 @@ class Options : AppCompatActivity(){
 
         saveButton = findViewById(R.id.save_button)
         cancelButton = findViewById(R.id.cancel_button)
+
         easyRadio = findViewById(R.id.easy_radiob)
         normalRadio = findViewById(R.id.medium_radiob)
         hardRadio = findViewById(R.id.hard_rb)
+
+        hintSwitch = findViewById(R.id.hint_switch)
+
         spinQnum = findViewById(R.id.qnumber_spinner)
+        spinHnum = findViewById(R.id.hnumber_spinner)
 
         spinQnum.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
+        spinHnum.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, hintsItems)
 
         val getDifficulty = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
 
@@ -87,6 +98,9 @@ class Options : AppCompatActivity(){
             })
             finish()
         }
+
+        spinHnum.isEnabled = false
+
     }
     fun onDifficultyChange(view: View){
         val difficultyRadio = view as RadioButton
@@ -136,4 +150,9 @@ class Options : AppCompatActivity(){
         }
         spinQnum.setSelection(0)
     }
+
+    fun onHintSwitchChange(view: View){
+        if(hintSwitch.isChecked) {spinHnum.isEnabled = true} else {spinHnum.isEnabled = false}
+    }
+
 }

@@ -191,8 +191,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:onClick="onHintSwitchChange"
             android:text="@string/hints_text"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:checked="false"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -206,7 +208,7 @@
             android:id="@+id/hnumber_spinner"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:padding="10dp" />
+            android:padding="10dp"/>
     </LinearLayout>
 
     <LinearLayout
