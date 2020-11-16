@@ -14,7 +14,7 @@
         android:text="@string/options_text"
         android:textStyle="bold"
         android:padding="10dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_margin="8dp"
         android:textAllCaps="true"/>
     <TextView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:text="@string/categories_text"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:padding="10dp"/>
 
     <CheckBox
@@ -37,7 +37,8 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -116,7 +117,7 @@
         android:layout_height="wrap_content"
         android:text="@string/qnumber_text"
         android:textStyle="bold"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:padding="10dp"/>
 
     <Spinner
@@ -145,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/levels_text"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <RadioButton
@@ -185,14 +186,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hints_text"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:padding="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hnumber_text"
             android:textStyle="bold"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:padding="10dp"/>
 
         <Spinner
@@ -216,14 +217,14 @@
             android:layout_height="wrap_content"
             android:text="@string/save_text"
             android:padding="10dp"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel_text"
             android:padding="10dp"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </LinearLayout>
