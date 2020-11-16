@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                         nquestions = data.getIntExtra(Options.EXTRA_QUESTION_NUMBERS,5)
                         ghints = data.getBooleanExtra(Options.EXTRA_HINT_OPTION,false)
                     }
-                    else-> null
                 }
             else->super.onActivityResult(requestCode, resultCode, data)
         }
