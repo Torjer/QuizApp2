@@ -4,4 +4,21 @@
     <string name="setting_text">Settings</string>
     <string name="save_text">Save</string>
     <string name="cancel_text">Cancel</string>
+    <string name="options_text">Options</string>
+    <string name="categories_text">Categories:</string>
+    <string name="all_text">All categories</string>
+    <string name="art_text">Art</string>
+    <string name="literature_text">Literature</string>
+    <string name="history_text">History</string>
+    <string name="geography_text">Geography</string>
+    <string name="movies_text">Movies</string>
+    <string name="science_text">Science</string>
+    <string name="qnumber_text">No. of questions:</string>
+    <string name="hnumber_text">No. of hints:</string>
+    <string name="levels_text">Questions level:</string>
+    <string name="easy_text">Easy</string>
+    <string name="medium_text">Medium</string>
+    <string name="hard_text">Hard</string>
+    <string name="hints_text">Hints</string>
+
 </resources>
