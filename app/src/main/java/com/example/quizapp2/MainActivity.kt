@@ -10,6 +10,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 private const val OPTIONS_ACTIVITY_REQUEST_CODE = 0;
+private const val GAME_ACTIVITY_REQUEST_CODE = 1;
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
         playButton.setOnClickListener { _ ->
             Toast.makeText(this, difficulty.toString(),Toast.LENGTH_SHORT).show()
+            startActivityForResult(
+                Game.createIntent(this,difficulty),
+                GAME_ACTIVITY_REQUEST_CODE
+            )
         }
 
         setButton.setOnClickListener { _ ->
@@ -52,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                         ghints = data.getBooleanExtra(Options.EXTRA_HINT_OPTION,false)
                     }
                 }
+
             else->super.onActivityResult(requestCode, resultCode, data)
         }
     }
