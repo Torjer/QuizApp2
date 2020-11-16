@@ -41,12 +41,13 @@ class Options : AppCompatActivity(){
     private var diffID : Int = 0
     private var selectedCat : Int = 6
     private var items= mutableListOf<String>()
+    private var i : Int = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
-        var i : Int = 5
+
         while (i<=(selectedCat*5)){
             items.add(i.toString())
             i++
@@ -67,6 +68,7 @@ class Options : AppCompatActivity(){
         hardRadio = findViewById(R.id.hard_rb)
         spinQnum = findViewById(R.id.qnumber_spinner)
 
+        spinQnum.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
 
         val getDifficulty = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
 
@@ -126,5 +128,12 @@ class Options : AppCompatActivity(){
             selectedCat++
             categoryCheck.isChecked = true
         }
+        i=5
+        items.clear()
+        while (i<=(selectedCat*5)){
+            items.add(i.toString())
+            i++
+        }
+        spinQnum.setSelection(0)
     }
 }
