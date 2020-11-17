@@ -79,7 +79,8 @@ class Game : AppCompatActivity() {
         AnsButton1 = findViewById(R.id.opt1_button)
         hintButton = findViewById(R.id.hint_button)
         questionText = findViewById(R.id.question_text)
-
+        prevButton = findViewById(R.id.prev_button)
+        nextButton = findViewById(R.id.next_button)
 
         var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         if(getHints == 0){
@@ -94,9 +95,15 @@ class Game : AppCompatActivity() {
         }
 
         selCategories.forEach { cat ->
-            question.forEach {
-                if(it.category.equals(cat)){
+            if(cat.equals("All")){
+                question.forEach {
                     inGameQuestions.add(it)
+                }
+            } else {
+                question.forEach {
+                    if (it.category.equals(cat)) {
+                        inGameQuestions.add(it)
+                    }
                 }
             }
         }
@@ -118,8 +125,6 @@ class Game : AppCompatActivity() {
         }
 
         prevButton.setOnClickListener{_->
-
         }
-
     }
 }
