@@ -40,7 +40,6 @@ class Options : AppCompatActivity() {
 
     private var categories: String = "All"
     private var diffID: Int = 0
-    private var hintNum: Int = 0
     private var selectedCat: Int = 6
     private var items = mutableListOf<String>()
     private var i: Int = 5
