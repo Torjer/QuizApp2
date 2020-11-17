@@ -10,12 +10,7 @@ import kotlinx.android.synthetic.main.activity_game.*
 
 class Game : AppCompatActivity() {
 
-    private lateinit var hintButton: Button
-    private lateinit var nextButton: Button
-    private lateinit var prevButton: Button
-
     companion object{
-
         const val EXTRA_CATEGORIES_TEXT = "com.example.quizapp2.categories_text"
         const val EXTRA_DIFFICULTY_LEVEL = "com.example.quizapp2.difficulty_level"
         const val EXTRA_QUESTION_NUMBERS = "com.example.quizapp2.question_number"
@@ -30,6 +25,10 @@ class Game : AppCompatActivity() {
             }
         }
     }
+
+    private lateinit var AnsButton1: Button
+    private lateinit var hintButton: Button
+    private lateinit var questionText: TextView
 
     private val question = listOf<Question>(
         Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,0),
@@ -63,46 +62,45 @@ class Game : AppCompatActivity() {
         Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,0),
         Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,0)
     )
+    private var inGameQuestions = mutableListOf<Question>()
     private var selCategories = listOf<String>()
-    private var HintsMax = 0
+
+    private var currentQuestionIndex = 0
+    private val currentQuestion : Question
+        get() = inGameQuestions.shuffled()[currentQuestionIndex]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
+        AnsButton1 = findViewById(R.id.opt1_button)
         hintButton = findViewById(R.id.hint_button)
-        nextButton = findViewById(R.id.next_button)
-        prevButton = findViewById(R.id.prev_button)
-
-        selCategories = EXTRA_CATEGORIES_TEXT.toString().split(",").map{it.trim()}
+        questionText = findViewById(R.id.question_text)
 
         var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         if(getHints == 0){
             hintButton.setVisibility(View.INVISIBLE)
-            tv_hint.setVisibility(View.INVISIBLE)
-            tv_hintnumber.setVisibility(View.INVISIBLE)
         }
-        else {
-            hintButton.setVisibility(View.VISIBLE)
-            tv_hint.setVisibility(View.VISIBLE)
-            tv_hintnumber.setVisibility(View.VISIBLE)}
+        else {hintButton.setVisibility(View.VISIBLE)}
 
-        HintsMax = getHints
+        selCategories.forEach { cat ->
+            question.forEach {
+                if(it.category.equals(cat)){
+                    inGameQuestions.add(it)
+                }
+            }
+        }
+
+        questionText.setText(currentQuestion.resID)
+
         hintButton.setOnClickListener{_->
-            tv_hintnumber.text = (getHints -1).toString() + "/" + HintsMax
-            getHints = getHints -1;
+            getHints = getHints -1
             if(getHints < 1){
                 !hintButton.isEnabled
             }
             else {hintButton.isEnabled}
         }
 
-        nextButton.setOnClickListener{_->
-
-        }
-
-        prevButton.setOnClickListener{_->
-
-        }
     }
 }
