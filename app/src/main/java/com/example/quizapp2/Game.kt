@@ -29,6 +29,8 @@ class Game : AppCompatActivity() {
     private lateinit var AnsButton1: Button
     private lateinit var hintButton: Button
     private lateinit var questionText: TextView
+    private lateinit var nextButton: Button
+    private lateinit var prevButton: Button
 
     private val question = listOf<Question>(
         Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,0),
@@ -64,7 +66,7 @@ class Game : AppCompatActivity() {
     )
     private var inGameQuestions = mutableListOf<Question>()
     private var selCategories = listOf<String>()
-
+    private var HintsMax = 0
     private var currentQuestionIndex = 0
     private val currentQuestion : Question
         get() = inGameQuestions.shuffled()[currentQuestionIndex]
@@ -78,11 +80,18 @@ class Game : AppCompatActivity() {
         hintButton = findViewById(R.id.hint_button)
         questionText = findViewById(R.id.question_text)
 
+
         var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         if(getHints == 0){
             hintButton.setVisibility(View.INVISIBLE)
+            tv_hintnumber.setVisibility(View.INVISIBLE)
+            tv_hint.setVisibility(View.INVISIBLE)
         }
-        else {hintButton.setVisibility(View.VISIBLE)}
+        else {
+            hintButton.setVisibility(View.VISIBLE)
+            tv_hintnumber.setVisibility(View.VISIBLE)
+            tv_hint.setVisibility(View.VISIBLE)
+        }
 
         selCategories.forEach { cat ->
             question.forEach {
@@ -94,12 +103,22 @@ class Game : AppCompatActivity() {
 
         questionText.setText(currentQuestion.resID)
 
+        HintsMax = getHints
         hintButton.setOnClickListener{_->
+            tv_hintnumber.text = (getHints -1).toString() + "/" + HintsMax
             getHints = getHints -1
             if(getHints < 1){
                 !hintButton.isEnabled
             }
             else {hintButton.isEnabled}
+        }
+
+        nextButton.setOnClickListener{_->
+
+        }
+
+        prevButton.setOnClickListener{_->
+
         }
 
     }
