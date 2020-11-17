@@ -69,7 +69,7 @@ class Game : AppCompatActivity() {
     private var HintsMax = 0
     private var currentQuestionIndex = 0
     private val currentQuestion : Question
-        get() = inGameQuestions.shuffled()[currentQuestionIndex]
+        get() = inGameQuestions[currentQuestionIndex]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +108,8 @@ class Game : AppCompatActivity() {
             }
         }
 
+        inGameQuestions = inGameQuestions.shuffled().toMutableList()
+
         questionText.setText(currentQuestion.resID)
 
         HintsMax = getHints
@@ -121,10 +123,13 @@ class Game : AppCompatActivity() {
         }
 
         nextButton.setOnClickListener{_->
-
+            currentQuestionIndex = (currentQuestionIndex + 1) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
+            questionText.setText(currentQuestion.resID)
         }
 
         prevButton.setOnClickListener{_->
+            currentQuestionIndex = (intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5) + currentQuestionIndex -1 ) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
+            questionText.setText(currentQuestion.resID)
         }
     }
 }

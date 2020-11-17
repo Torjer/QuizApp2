@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private var categories : String = "All"
     private var difficulty : Int = 0
-    private var nquestions : Int = 0
+    private var nquestions : Int = 5
     private var ghints : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

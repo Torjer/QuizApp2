@@ -91,7 +91,7 @@ class Options : AppCompatActivity() {
             setResult(RESULT_SETTINGS_CONFIG, Intent().apply {
                 putExtra(EXTRA_CATEGORIES_TEXT, sendCat)
                 putExtra(EXTRA_DIFFICULTY_LEVEL, diffID)
-                putExtra(EXTRA_QUESTION_NUMBERS, spinQnum.selectedItemId+5)
+                putExtra(EXTRA_QUESTION_NUMBERS, spinQnum.selectedItemPosition+5)
                 putExtra(EXTRA_HINT_OPTION, if (hintSwitch.isChecked) {spinHnum.selectedItemPosition + 1} else {0})
             })
             finish()
