@@ -166,6 +166,7 @@ class Game : AppCompatActivity() {
     private var selCategories = listOf<String>()
     private var HintsMax = 0
     private var score = 0
+    private var Aquestions = 0
     private var currentQuestionIndex = 0
     private val currentQuestion : Question
         get() = inGameQuestions[currentQuestionIndex]
@@ -324,7 +325,8 @@ class Game : AppCompatActivity() {
 
     fun onAnswerClick(view: View){
         val selAnswer = view as Button
-        if(view.text == getText(currentQuestion.answer)){
+        Aquestions++
+        if(selAnswer.text == getText(currentQuestion.answer)){
             currentQuestion.qcolor = "#5f6f2e"
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
         }
@@ -333,5 +335,8 @@ class Game : AppCompatActivity() {
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
         }
         isAnswered(currentQuestion.qcolor)
+        if(Aquestions==intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)){
+            finish() //sustituir por el score y la imagen
+        }
     }
 }
