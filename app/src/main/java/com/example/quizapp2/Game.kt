@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_game.*
 
 class Game : AppCompatActivity() {
@@ -66,7 +67,7 @@ class Game : AppCompatActivity() {
         Question("Science",R.string.question_text_S2, R.string.Canswer_text_S2,"#000000", listOf<Int>(0)),
         Question("Science",R.string.question_text_S3, R.string.Canswer_text_S3,"#000000", listOf<Int>(0)),
         Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,"#000000", listOf<Int>(0)),
-        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,"#0000000", listOf<Int>(0))
+        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,"#000000", listOf<Int>(0))
     )
     private var ans = listOf<Answer>(
         Answer(R.string.question_text_A1, R.string.I1answer_text_A1),
@@ -159,7 +160,6 @@ class Game : AppCompatActivity() {
         Answer(R.string.question_text_S5, R.string.I3answer_text_S5),
         Answer(R.string.question_text_S5, R.string.I1answer_text_S5),
         Answer(R.string.question_text_S5, R.string.I2answer_text_S5)
-
     )
 
     private var inGameQuestions = mutableListOf<Question>()
@@ -186,6 +186,33 @@ class Game : AppCompatActivity() {
         }
     }
 
+    private fun difficultyChanges(dif: Int, quest: Question, ans: List<Int>): MutableList<Int> {
+        var temp = mutableListOf<Int>()
+        temp.add(quest.answer)
+        temp.add(ans[0])
+        when(dif){
+            0 ->{
+                temp.shuffle()
+                temp.add(ans[1])
+                temp.add(ans[2])
+                return temp
+            }
+            1->{
+                temp.add(ans[1])
+                temp.shuffle()
+                temp.add(ans[2])
+                return temp
+            }
+            2->{
+                temp.add(ans[1])
+                temp.add(ans[2])
+                temp.shuffle()
+                return temp
+            }
+        }
+        return temp
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -202,6 +229,17 @@ class Game : AppCompatActivity() {
 
 
         var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
+        val difSet = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
+        HintsMax = getHints
+
+        when(difSet){
+            0->{
+                AnsButton3.visibility=View.INVISIBLE
+                AnsButton4.visibility=View.INVISIBLE
+            }
+            1->{AnsButton4.visibility=View.INVISIBLE}
+        }
+
         if(getHints == 0){
             hintButton.setVisibility(View.INVISIBLE)
             tv_hintnumber.setVisibility(View.INVISIBLE)
@@ -211,6 +249,7 @@ class Game : AppCompatActivity() {
             hintButton.setVisibility(View.VISIBLE)
             tv_hintnumber.setVisibility(View.VISIBLE)
             tv_hint.setVisibility(View.VISIBLE)
+            tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
         }
 
         selCategories.forEach { cat ->
@@ -229,26 +268,25 @@ class Game : AppCompatActivity() {
 
         inGameQuestions.forEach{ gQ->
             var temp = mutableListOf<Int>()
-            temp.add(gQ.answer)
             ans.forEach {
                 if(it.qresID == gQ.resID){
                     temp.add(it.wresID)
                 }
             }
+            temp = difficultyChanges(difSet,gQ,temp)
             gQ.wanswers = temp.shuffled()
         }
 
         inGameQuestions = inGameQuestions.shuffled().toMutableList()
 
         questionText.setText(currentQuestion.resID)
+        questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
         AnsButton1.setText(currentQuestion.wanswers[0])
         AnsButton2.setText(currentQuestion.wanswers[1])
         AnsButton3.setText(currentQuestion.wanswers[2])
         AnsButton4.setText(currentQuestion.wanswers[3])
 
         currentAnswers.clear()
-        
-        HintsMax = getHints
         hintButton.setOnClickListener{_->
             tv_hintnumber.text = (getHints -1).toString() + "/" + HintsMax
             questionText.setTextColor(Color.parseColor("#0000FF"))
