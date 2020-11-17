@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Game">
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.2" />
+
     <LinearLayout
         android:id="@+id/ll_text"
         android:layout_width="match_parent"
@@ -27,11 +28,11 @@
             android:padding="15dp"
             android:textSize="14sp"
             tools:text="@string/question_text" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2"
-            />
+            android:layout_weight="0.2" />
 
         <TextView
             android:id="@+id/tv_hint"
@@ -60,11 +61,11 @@
             android:padding="15dp"
             android:textSize="14sp"
             tools:text="0/6" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2"
-            />
+            android:layout_weight="0.2" />
 
         <TextView
             android:id="@+id/tv_hintnumber"
@@ -76,6 +77,7 @@
             android:textSize="14sp"
             tools:text="0/3" />
     </LinearLayout>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -89,9 +91,9 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:gravity="center"
+        android:textColor="#4C4B4B"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#4C4B4B"
         tools:text="Question" />
 
     <Space
@@ -101,42 +103,43 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="258dp"
+        android:layout_height="wrap_content"
         android:baselineAligned="false"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/prev_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="@string/prev_text"
-                android:drawableLeft="@drawable/ic_prev"/>
+                android:drawableLeft="@drawable/ic_prev"
+                android:text="@string/prev_text" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/opt1_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:onClick="onAnswerClick"
                 android:text="Option 1" />
 
             <Button
@@ -144,6 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:onClick="onAnswerClick"
                 android:text="Option 2" />
 
             <Button
@@ -151,6 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:onClick="onAnswerClick"
                 android:text="Option 3" />
 
             <Button
@@ -158,38 +163,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:onClick="onAnswerClick"
                 android:text="Option 4" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/next_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="@string/next_text"
-                android:drawableRight="@drawable/ic_next"/>
+                android:drawableRight="@drawable/ic_next"
+                android:text="@string/next_text" />
 
 
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/hint_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/use_text"/>
+            android:text="@string/use_text" />
 
     </LinearLayout>
 </LinearLayout>
