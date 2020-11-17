@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var nquestions : Int = 5
     private var ghints : Int = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
