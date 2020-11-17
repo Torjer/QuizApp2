@@ -10,10 +10,7 @@ import kotlinx.android.synthetic.main.activity_game.*
 
 class Game : AppCompatActivity() {
 
-    private lateinit var hintButton: Button
-
     companion object{
-
         const val EXTRA_CATEGORIES_TEXT = "com.example.quizapp2.categories_text"
         const val EXTRA_DIFFICULTY_LEVEL = "com.example.quizapp2.difficulty_level"
         const val EXTRA_QUESTION_NUMBERS = "com.example.quizapp2.question_number"
@@ -78,10 +75,10 @@ class Game : AppCompatActivity() {
 
         selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
         AnsButton1 = findViewById(R.id.opt1_button)
-
         hintButton = findViewById(R.id.hint_button)
-        selCategories = EXTRA_CATEGORIES_TEXT.toString().split(",").map{it.trim()}
-        val getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
+        questionText = findViewById(R.id.question_text)
+
+        var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         if(getHints == 0){
             hintButton.setVisibility(View.INVISIBLE)
         }
