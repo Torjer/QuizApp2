@@ -28,42 +28,45 @@ class Game : AppCompatActivity() {
     }
 
     private lateinit var AnsButton1: Button
+    private lateinit var AnsButton2: Button
+    private lateinit var AnsButton3: Button
+    private lateinit var AnsButton4: Button
     private lateinit var hintButton: Button
     private lateinit var questionText: TextView
     private lateinit var nextButton: Button
     private lateinit var prevButton: Button
 
     private val question = listOf<Question>(
-        Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,0),
-        Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,0),
-        Question("Art",R.string.question_text_A3, R.string.Canswer_text_A3,0),
-        Question("Art",R.string.question_text_A4, R.string.Canswer_text_A4,0),
-        Question("Art",R.string.question_text_A5, R.string.Canswer_text_A5,0),
-        Question("Geography",R.string.question_text_G1, R.string.Canswer_text_G1,0),
-        Question("Geography",R.string.question_text_G2, R.string.Canswer_text_G2,0),
-        Question("Geography",R.string.question_text_G3, R.string.Canswer_text_G3,0),
-        Question("Geography",R.string.question_text_G4, R.string.Canswer_text_G4,0),
-        Question("Geography",R.string.question_text_G5, R.string.Canswer_text_G5,0),
-        Question("History",R.string.question_text_H1, R.string.Canswer_text_H1,0),
-        Question("History",R.string.question_text_H2, R.string.Canswer_text_H2,0),
-        Question("History",R.string.question_text_H3, R.string.Canswer_text_H3,0),
-        Question("History",R.string.question_text_H4, R.string.Canswer_text_H4,0),
-        Question("History",R.string.question_text_H5, R.string.Canswer_text_H5,0),
-        Question("Movies",R.string.question_text_M1, R.string.Canswer_text_M1,0),
-        Question("Movies",R.string.question_text_M2, R.string.Canswer_text_M2,0),
-        Question("Movies",R.string.question_text_M3, R.string.Canswer_text_M3,0),
-        Question("Movies",R.string.question_text_M4, R.string.Canswer_text_M4,0),
-        Question("Movies",R.string.question_text_M5, R.string.Canswer_text_M5,0),
-        Question("Literature",R.string.question_text_L1, R.string.Canswer_text_L1,0),
-        Question("Literature",R.string.question_text_L2, R.string.Canswer_text_L2,0),
-        Question("Literature",R.string.question_text_L3, R.string.Canswer_text_L3,0),
-        Question("Literature",R.string.question_text_L4, R.string.Canswer_text_L4,0),
-        Question("Literature",R.string.question_text_L5, R.string.Canswer_text_L5,0),
-        Question("Science",R.string.question_text_S1, R.string.Canswer_text_S1,0),
-        Question("Science",R.string.question_text_S2, R.string.Canswer_text_S2,0),
-        Question("Science",R.string.question_text_S3, R.string.Canswer_text_S3,0),
-        Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,0),
-        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,0)
+        Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,0, R.string.I1answer_text_A1, R.string.I2answer_text_A1, R.string.I3answer_text_A1),
+        Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,0, R.string.I1answer_text_A2, R.string.I2answer_text_A2, R.string.I3answer_text_A2),
+        Question("Art",R.string.question_text_A3, R.string.Canswer_text_A3,0, R.string.I1answer_text_A3, R.string.I2answer_text_A3, R.string.I3answer_text_A3),
+        Question("Art",R.string.question_text_A4, R.string.Canswer_text_A4,0, R.string.I1answer_text_A4, R.string.I2answer_text_A4, R.string.I3answer_text_A4),
+        Question("Art",R.string.question_text_A5, R.string.Canswer_text_A5,0, R.string.I1answer_text_A5, R.string.I2answer_text_A5, R.string.I3answer_text_A5),
+        Question("Geography",R.string.question_text_G1, R.string.Canswer_text_G1,0, R.string.I1answer_text_G1, R.string.I2answer_text_G1, R.string.I3answer_text_G1),
+        Question("Geography",R.string.question_text_G2, R.string.Canswer_text_G2,0, R.string.I1answer_text_G2, R.string.I2answer_text_G2, R.string.I3answer_text_G2),
+        Question("Geography",R.string.question_text_G3, R.string.Canswer_text_G3,0, R.string.I1answer_text_G3, R.string.I2answer_text_G3, R.string.I3answer_text_G3),
+        Question("Geography",R.string.question_text_G4, R.string.Canswer_text_G4,0, R.string.I1answer_text_G4, R.string.I2answer_text_G4, R.string.I3answer_text_G4),
+        Question("Geography",R.string.question_text_G5, R.string.Canswer_text_G5,0, R.string.I1answer_text_G5, R.string.I2answer_text_G5, R.string.I3answer_text_G5),
+        Question("History",R.string.question_text_H1, R.string.Canswer_text_H1,0, R.string.I1answer_text_H1, R.string.I2answer_text_H1, R.string.I3answer_text_H1),
+        Question("History",R.string.question_text_H2, R.string.Canswer_text_H2,0, R.string.I1answer_text_H2, R.string.I2answer_text_H2, R.string.I3answer_text_H2),
+        Question("History",R.string.question_text_H3, R.string.Canswer_text_H3,0, R.string.I1answer_text_H3, R.string.I2answer_text_H3, R.string.I3answer_text_H3),
+        Question("History",R.string.question_text_H4, R.string.Canswer_text_H4,0, R.string.I1answer_text_H4, R.string.I2answer_text_H4, R.string.I3answer_text_H4),
+        Question("History",R.string.question_text_H5, R.string.Canswer_text_H5,0, R.string.I1answer_text_H5, R.string.I2answer_text_H5, R.string.I3answer_text_H5),
+        Question("Movies",R.string.question_text_M1, R.string.Canswer_text_M1,0, R.string.I1answer_text_M1, R.string.I2answer_text_M1, R.string.I3answer_text_M1),
+        Question("Movies",R.string.question_text_M2, R.string.Canswer_text_M2,0, R.string.I1answer_text_M2, R.string.I2answer_text_M2, R.string.I3answer_text_M2),
+        Question("Movies",R.string.question_text_M3, R.string.Canswer_text_M3,0, R.string.I1answer_text_M3, R.string.I2answer_text_M3, R.string.I3answer_text_M3),
+        Question("Movies",R.string.question_text_M4, R.string.Canswer_text_M4,0, R.string.I1answer_text_M4, R.string.I2answer_text_M4, R.string.I3answer_text_M4),
+        Question("Movies",R.string.question_text_M5, R.string.Canswer_text_M5,0, R.string.I1answer_text_M5, R.string.I2answer_text_M5, R.string.I3answer_text_M5),
+        Question("Literature",R.string.question_text_L1, R.string.Canswer_text_L1,0, R.string.I1answer_text_L1, R.string.I2answer_text_L1, R.string.I3answer_text_L1),
+        Question("Literature",R.string.question_text_L2, R.string.Canswer_text_L2,0, R.string.I1answer_text_L2, R.string.I2answer_text_L2, R.string.I3answer_text_L2),
+        Question("Literature",R.string.question_text_L3, R.string.Canswer_text_L3,0, R.string.I1answer_text_L3, R.string.I2answer_text_L3, R.string.I3answer_text_L3),
+        Question("Literature",R.string.question_text_L4, R.string.Canswer_text_L4,0, R.string.I1answer_text_L4, R.string.I2answer_text_L4, R.string.I3answer_text_L4),
+        Question("Literature",R.string.question_text_L5, R.string.Canswer_text_L5,0, R.string.I1answer_text_L5, R.string.I2answer_text_L5, R.string.I3answer_text_L5),
+        Question("Science",R.string.question_text_S1, R.string.Canswer_text_S1,0, R.string.I1answer_text_S1, R.string.I2answer_text_S1, R.string.I3answer_text_S1),
+        Question("Science",R.string.question_text_S2, R.string.Canswer_text_S2,0, R.string.I1answer_text_S2, R.string.I2answer_text_S2, R.string.I3answer_text_S2),
+        Question("Science",R.string.question_text_S3, R.string.Canswer_text_S3,0, R.string.I1answer_text_S3, R.string.I2answer_text_S3, R.string.I3answer_text_S3),
+        Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,0, R.string.I1answer_text_S4, R.string.I2answer_text_S4, R.string.I3answer_text_S4),
+        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,0, R.string.I1answer_text_S5, R.string.I2answer_text_S5, R.string.I3answer_text_S5)
     )
     private var inGameQuestions = mutableListOf<Question>()
     private var selCategories = listOf<String>()
@@ -71,6 +74,9 @@ class Game : AppCompatActivity() {
     private var currentQuestionIndex = 0
     private val currentQuestion : Question
         get() = inGameQuestions[currentQuestionIndex]
+    private val currentAnswers = mutableListOf<Int>()
+    private lateinit var actualQuestion : Question
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,10 +84,14 @@ class Game : AppCompatActivity() {
 
         selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
         AnsButton1 = findViewById(R.id.opt1_button)
+        AnsButton2 = findViewById(R.id.opt2_button)
+        AnsButton3 = findViewById(R.id.opt3_button)
+        AnsButton4 = findViewById(R.id.opt4_button)
         hintButton = findViewById(R.id.hint_button)
         questionText = findViewById(R.id.question_text)
         prevButton = findViewById(R.id.prev_button)
         nextButton = findViewById(R.id.next_button)
+
 
         var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         if(getHints == 0){
@@ -111,7 +121,20 @@ class Game : AppCompatActivity() {
 
         inGameQuestions = inGameQuestions.shuffled().toMutableList()
 
+        currentAnswers.add(currentQuestion.answer)
+        currentAnswers.add(currentQuestion.ianswera)
+        currentAnswers.add(currentQuestion.ianswerb)
+        currentAnswers.add(currentQuestion.ianswerc)
+        currentAnswers.shuffle()
+
         questionText.setText(currentQuestion.resID)
+        AnsButton1.setText(currentAnswers[0])
+        AnsButton2.setText(currentAnswers[1])
+        AnsButton3.setText(currentAnswers[2])
+        AnsButton4.setText(currentAnswers[3])
+
+        currentAnswers.clear()
+
 
         HintsMax = getHints
         hintButton.setOnClickListener{_->
@@ -126,12 +149,36 @@ class Game : AppCompatActivity() {
 
         nextButton.setOnClickListener{_->
             currentQuestionIndex = (currentQuestionIndex + 1) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
+            currentAnswers.add(currentQuestion.answer)
+            currentAnswers.add(currentQuestion.ianswera)
+            currentAnswers.add(currentQuestion.ianswerb)
+            currentAnswers.add(currentQuestion.ianswerc)
+            currentAnswers.shuffle()
+
             questionText.setText(currentQuestion.resID)
+            AnsButton1.setText(currentAnswers[0])
+            AnsButton2.setText(currentAnswers[1])
+            AnsButton3.setText(currentAnswers[2])
+            AnsButton4.setText(currentAnswers[3])
+
+            currentAnswers.clear()
         }
 
         prevButton.setOnClickListener{_->
             currentQuestionIndex = (intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5) + currentQuestionIndex -1 ) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
+            currentAnswers.add(currentQuestion.answer)
+            currentAnswers.add(currentQuestion.ianswera)
+            currentAnswers.add(currentQuestion.ianswerb)
+            currentAnswers.add(currentQuestion.ianswerc)
+            currentAnswers.shuffle()
+
             questionText.setText(currentQuestion.resID)
+            AnsButton1.setText(currentAnswers[0])
+            AnsButton2.setText(currentAnswers[1])
+            AnsButton3.setText(currentAnswers[2])
+            AnsButton4.setText(currentAnswers[3])
+
+            currentAnswers.clear()
         }
     }
 }
