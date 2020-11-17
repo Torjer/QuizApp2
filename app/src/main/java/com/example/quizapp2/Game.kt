@@ -2,6 +2,7 @@ package com.example.quizapp2
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -115,6 +116,7 @@ class Game : AppCompatActivity() {
         HintsMax = getHints
         hintButton.setOnClickListener{_->
             tv_hintnumber.text = (getHints -1).toString() + "/" + HintsMax
+            questionText.setTextColor(Color.parseColor("#0000FF"))
             getHints = getHints -1
             if(getHints < 1){
                 !hintButton.isEnabled
