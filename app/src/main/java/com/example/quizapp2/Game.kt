@@ -38,36 +38,36 @@ class Game : AppCompatActivity() {
     private lateinit var prevButton: Button
 
     private val question = listOf<Question>(
-        Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,"#000000", listOf<Int>(0)),
-        Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,"#000000", listOf<Int>(0)),
-        Question("Art",R.string.question_text_A3, R.string.Canswer_text_A3,"#000000", listOf<Int>(0)),
-        Question("Art",R.string.question_text_A4, R.string.Canswer_text_A4,"#000000", listOf<Int>(0)),
-        Question("Art",R.string.question_text_A5, R.string.Canswer_text_A5,"#000000", listOf<Int>(0)),
-        Question("Geography",R.string.question_text_G1, R.string.Canswer_text_G1,"#000000", listOf<Int>(0)),
-        Question("Geography",R.string.question_text_G2, R.string.Canswer_text_G2,"#000000", listOf<Int>(0)),
-        Question("Geography",R.string.question_text_G3, R.string.Canswer_text_G3,"#000000", listOf<Int>(0)),
-        Question("Geography",R.string.question_text_G4, R.string.Canswer_text_G4,"#000000", listOf<Int>(0)),
-        Question("Geography",R.string.question_text_G5, R.string.Canswer_text_G5,"#000000", listOf<Int>(0)),
-        Question("History",R.string.question_text_H1, R.string.Canswer_text_H1,"#000000", listOf<Int>(0)),
-        Question("History",R.string.question_text_H2, R.string.Canswer_text_H2,"#000000", listOf<Int>(0)),
-        Question("History",R.string.question_text_H3, R.string.Canswer_text_H3,"#000000", listOf<Int>(0)),
-        Question("History",R.string.question_text_H4, R.string.Canswer_text_H4,"#000000", listOf<Int>(0)),
-        Question("History",R.string.question_text_H5, R.string.Canswer_text_H5,"#000000", listOf<Int>(0)),
-        Question("Movies",R.string.question_text_M1, R.string.Canswer_text_M1,"#000000", listOf<Int>(0)),
-        Question("Movies",R.string.question_text_M2, R.string.Canswer_text_M2,"#000000", listOf<Int>(0)),
-        Question("Movies",R.string.question_text_M3, R.string.Canswer_text_M3,"#000000", listOf<Int>(0)),
-        Question("Movies",R.string.question_text_M4, R.string.Canswer_text_M4,"#000000", listOf<Int>(0)),
-        Question("Movies",R.string.question_text_M5, R.string.Canswer_text_M5,"#000000", listOf<Int>(0)),
-        Question("Literature",R.string.question_text_L1, R.string.Canswer_text_L1,"#000000", listOf<Int>(0)),
-        Question("Literature",R.string.question_text_L2, R.string.Canswer_text_L2,"#000000", listOf<Int>(0)),
-        Question("Literature",R.string.question_text_L3, R.string.Canswer_text_L3,"#000000", listOf<Int>(0)),
-        Question("Literature",R.string.question_text_L4, R.string.Canswer_text_L4,"#000000", listOf<Int>(0)),
-        Question("Literature",R.string.question_text_L5, R.string.Canswer_text_L5,"#000000", listOf<Int>(0)),
-        Question("Science",R.string.question_text_S1, R.string.Canswer_text_S1,"#000000", listOf<Int>(0)),
-        Question("Science",R.string.question_text_S2, R.string.Canswer_text_S2,"#000000", listOf<Int>(0)),
-        Question("Science",R.string.question_text_S3, R.string.Canswer_text_S3,"#000000", listOf<Int>(0)),
-        Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,"#000000", listOf<Int>(0)),
-        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,"#000000", listOf<Int>(0))
+        Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,"#000000", listOf<Int>(0), 0),
+        Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,"#000000", listOf<Int>(0), 0),
+        Question("Art",R.string.question_text_A3, R.string.Canswer_text_A3,"#000000", listOf<Int>(0), 0),
+        Question("Art",R.string.question_text_A4, R.string.Canswer_text_A4,"#000000", listOf<Int>(0), 0),
+        Question("Art",R.string.question_text_A5, R.string.Canswer_text_A5,"#000000", listOf<Int>(0), 0),
+        Question("Geography",R.string.question_text_G1, R.string.Canswer_text_G1,"#000000", listOf<Int>(0), 0),
+        Question("Geography",R.string.question_text_G2, R.string.Canswer_text_G2,"#000000", listOf<Int>(0), 0),
+        Question("Geography",R.string.question_text_G3, R.string.Canswer_text_G3,"#000000", listOf<Int>(0), 0),
+        Question("Geography",R.string.question_text_G4, R.string.Canswer_text_G4,"#000000", listOf<Int>(0), 0),
+        Question("Geography",R.string.question_text_G5, R.string.Canswer_text_G5,"#000000", listOf<Int>(0), 0),
+        Question("History",R.string.question_text_H1, R.string.Canswer_text_H1,"#000000", listOf<Int>(0), 0),
+        Question("History",R.string.question_text_H2, R.string.Canswer_text_H2,"#000000", listOf<Int>(0), 0),
+        Question("History",R.string.question_text_H3, R.string.Canswer_text_H3,"#000000", listOf<Int>(0), 0),
+        Question("History",R.string.question_text_H4, R.string.Canswer_text_H4,"#000000", listOf<Int>(0), 0),
+        Question("History",R.string.question_text_H5, R.string.Canswer_text_H5,"#000000", listOf<Int>(0), 0),
+        Question("Movies",R.string.question_text_M1, R.string.Canswer_text_M1,"#000000", listOf<Int>(0), 0),
+        Question("Movies",R.string.question_text_M2, R.string.Canswer_text_M2,"#000000", listOf<Int>(0), 0),
+        Question("Movies",R.string.question_text_M3, R.string.Canswer_text_M3,"#000000", listOf<Int>(0), 0),
+        Question("Movies",R.string.question_text_M4, R.string.Canswer_text_M4,"#000000", listOf<Int>(0), 0),
+        Question("Movies",R.string.question_text_M5, R.string.Canswer_text_M5,"#000000", listOf<Int>(0), 0),
+        Question("Literature",R.string.question_text_L1, R.string.Canswer_text_L1,"#000000", listOf<Int>(0), 0),
+        Question("Literature",R.string.question_text_L2, R.string.Canswer_text_L2,"#000000", listOf<Int>(0), 0),
+        Question("Literature",R.string.question_text_L3, R.string.Canswer_text_L3,"#000000", listOf<Int>(0), 0),
+        Question("Literature",R.string.question_text_L4, R.string.Canswer_text_L4,"#000000", listOf<Int>(0), 0),
+        Question("Literature",R.string.question_text_L5, R.string.Canswer_text_L5,"#000000", listOf<Int>(0), 0),
+        Question("Science",R.string.question_text_S1, R.string.Canswer_text_S1,"#000000", listOf<Int>(0), 0),
+        Question("Science",R.string.question_text_S2, R.string.Canswer_text_S2,"#000000", listOf<Int>(0), 0),
+        Question("Science",R.string.question_text_S3, R.string.Canswer_text_S3,"#000000", listOf<Int>(0), 0),
+        Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,"#000000", listOf<Int>(0), 0),
+        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,"#000000", listOf<Int>(0), 0)
     )
     private var ans = listOf<Answer>(
         Answer(R.string.question_text_A1, R.string.I1answer_text_A1),
@@ -170,16 +170,29 @@ class Game : AppCompatActivity() {
     private var currentQuestionIndex = 0
     private val currentQuestion : Question
         get() = inGameQuestions[currentQuestionIndex]
-    private val currentAnswers = mutableListOf<Int>()
 
     private fun isAnswered(color: String){
         if(color != "#000000"){
+            AnsButton1.setTextColor(Color.parseColor("#a2a2a2"))
+            AnsButton2.setTextColor(Color.parseColor("#a2a2a2"))
+            AnsButton3.setTextColor(Color.parseColor("#a2a2a2"))
+            AnsButton4.setTextColor(Color.parseColor("#a2a2a2"))
             AnsButton1.isEnabled = false
             AnsButton2.isEnabled = false
             AnsButton3.isEnabled = false
             AnsButton4.isEnabled = false
+            when (currentQuestion.butanswered) {
+                1 -> AnsButton1.setTextColor(Color.parseColor(color))
+                2 -> AnsButton2.setTextColor(Color.parseColor(color))
+                3 -> AnsButton3.setTextColor(Color.parseColor(color))
+                4 -> AnsButton4.setTextColor(Color.parseColor(color))
+            }
         }
         else{
+            AnsButton1.setTextColor(Color.parseColor("#000000"))
+            AnsButton2.setTextColor(Color.parseColor("#000000"))
+            AnsButton3.setTextColor(Color.parseColor("#000000"))
+            AnsButton4.setTextColor(Color.parseColor("#000000"))
             AnsButton1.isEnabled = true
             AnsButton2.isEnabled = true
             AnsButton3.isEnabled = true
@@ -287,7 +300,6 @@ class Game : AppCompatActivity() {
         AnsButton3.setText(currentQuestion.wanswers[2])
         AnsButton4.setText(currentQuestion.wanswers[3])
 
-        currentAnswers.clear()
         hintButton.setOnClickListener{_->
             tv_hintnumber.text = (getHints -1).toString() + "/" + HintsMax
             questionText.setTextColor(Color.parseColor("#0000FF"))
@@ -302,7 +314,6 @@ class Game : AppCompatActivity() {
 
         nextButton.setOnClickListener{_->
             currentQuestionIndex = (currentQuestionIndex + 1) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
-
             questionText.setText(currentQuestion.resID)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
@@ -314,7 +325,6 @@ class Game : AppCompatActivity() {
 
         prevButton.setOnClickListener{_->
             currentQuestionIndex = (intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5) + currentQuestionIndex -1 ) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
-
             questionText.setText(currentQuestion.resID)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
@@ -335,6 +345,13 @@ class Game : AppCompatActivity() {
         else{
             currentQuestion.qcolor = "#e30118"
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
+        }
+        selAnswer.setTextColor(Color.parseColor(currentQuestion.qcolor))
+        when (selAnswer.id) {
+            opt1_button.id -> currentQuestion.butanswered = 1
+            opt2_button.id -> currentQuestion.butanswered = 2
+            opt3_button.id -> currentQuestion.butanswered = 3
+            opt4_button.id -> currentQuestion.butanswered = 4
         }
         isAnswered(currentQuestion.qcolor)
         if(Aquestions==intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)){
