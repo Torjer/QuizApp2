@@ -167,7 +167,8 @@ class Game : AppCompatActivity() {
     private var inGameQuestions = mutableListOf<Question>()
     private var selCategories = listOf<String>()
     private var HintsMax = 0
-    private var score = 0
+    private var scoreMultplier = 0
+    private var totalScore = 0
     private var Aquestions = 0
     private var currentQuestionIndex = 0
     private val currentQuestion : Question
@@ -203,23 +204,27 @@ class Game : AppCompatActivity() {
     }
 
     private fun difficultyChanges(dif: Int, quest: Question, ans: List<Int>): MutableList<Int> {
+
         var temp = mutableListOf<Int>()
         temp.add(quest.answer)
         temp.add(ans[0])
         when(dif){
             0 ->{
+                scoreMultplier=1
                 temp.shuffle()
                 temp.add(ans[1])
                 temp.add(ans[2])
                 return temp
             }
             1->{
+                scoreMultplier=2
                 temp.add(ans[1])
                 temp.shuffle()
                 temp.add(ans[2])
                 return temp
             }
             2->{
+                scoreMultplier=3
                 temp.add(ans[1])
                 temp.add(ans[2])
                 temp.shuffle()
@@ -306,7 +311,6 @@ class Game : AppCompatActivity() {
         AnsButton4.setText(currentQuestion.wanswers[3])
 
         hintButton.setOnClickListener{_->
-            tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
             questionText.setTextColor(Color.parseColor("#0000FF"))
             if(getHints < 1){
                 !hintButton.isEnabled
@@ -314,6 +318,8 @@ class Game : AppCompatActivity() {
             else {
                 hintButton.isEnabled
                 getHints = getHints -1
+                totalScore--
+                tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
             }
         }
 
@@ -348,6 +354,8 @@ class Game : AppCompatActivity() {
         if(selAnswer.text == getText(currentQuestion.answer)){
             currentQuestion.qcolor = "#5f6f2e"
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
+            totalScore++
+
         }
         else{
             currentQuestion.qcolor = "#e30118"
