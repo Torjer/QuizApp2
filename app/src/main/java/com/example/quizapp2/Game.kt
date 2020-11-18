@@ -301,7 +301,7 @@ class Game : AppCompatActivity() {
         AnsButton4.setText(currentQuestion.wanswers[3])
 
         hintButton.setOnClickListener{_->
-            tv_hintnumber.text = (getHints -1).toString() + "/" + HintsMax
+            tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
             questionText.setTextColor(Color.parseColor("#0000FF"))
             if(getHints < 1){
                 !hintButton.isEnabled
@@ -317,10 +317,10 @@ class Game : AppCompatActivity() {
             questionText.setText(currentQuestion.resID)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
-            AnsButton1.setText(currentQuestion.wanswers[0])
-            AnsButton2.setText(currentQuestion.wanswers[1])
-            AnsButton3.setText(currentQuestion.wanswers[2])
-            AnsButton4.setText(currentQuestion.wanswers[3])
+            AnsButton1.setText(currentQuestion.wanswers[3])
+            AnsButton2.setText(currentQuestion.wanswers[2])
+            AnsButton3.setText(currentQuestion.wanswers[1])
+            AnsButton4.setText(currentQuestion.wanswers[0])
         }
 
         prevButton.setOnClickListener{_->
@@ -328,10 +328,10 @@ class Game : AppCompatActivity() {
             questionText.setText(currentQuestion.resID)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
-            AnsButton1.setText(currentQuestion.wanswers[0])
-            AnsButton2.setText(currentQuestion.wanswers[1])
-            AnsButton3.setText(currentQuestion.wanswers[2])
-            AnsButton4.setText(currentQuestion.wanswers[3])
+            AnsButton1.setText(currentQuestion.wanswers[3])
+            AnsButton2.setText(currentQuestion.wanswers[2])
+            AnsButton3.setText(currentQuestion.wanswers[1])
+            AnsButton4.setText(currentQuestion.wanswers[0])
         }
     }
 
@@ -355,7 +355,7 @@ class Game : AppCompatActivity() {
         }
         isAnswered(currentQuestion.qcolor)
         if(Aquestions==intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)){
-            finish() //sustituir por el score y la imagen
+            finish() //sustituir por el score y la image
         }
     }
 }
