@@ -140,7 +140,8 @@ class Options : AppCompatActivity() {
                         if (selectedCat == 6) {
                             allCheckB.isChecked = true
                             allCheckB.isEnabled = false
-                            categories = "All"
+                            categoryList.clear()
+                            categoryList.add("All")
                         } else {
                             categoryList.add(it.text.toString())
                             allCheckB.isEnabled = true

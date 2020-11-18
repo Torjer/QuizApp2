@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                         difficulty = data.getIntExtra(Options.EXTRA_DIFFICULTY_LEVEL,0)
                         nquestions = data.getIntExtra(Options.EXTRA_QUESTION_NUMBERS,5)
                         ghints = data.getIntExtra(Options.EXTRA_HINT_OPTION,0)
-                        Toast.makeText(this,ghints.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,categories, Toast.LENGTH_SHORT).show()
                     }
                 }
 
