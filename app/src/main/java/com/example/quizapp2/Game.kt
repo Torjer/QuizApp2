@@ -36,6 +36,8 @@ class Game : AppCompatActivity() {
     private lateinit var questionText: TextView
     private lateinit var nextButton: Button
     private lateinit var prevButton: Button
+    private lateinit var tvQuestionNumber : TextView
+    private lateinit var tvHint : TextView
 
     private val question = listOf<Question>(
         Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,"#000000", listOf<Int>(0), 0),
@@ -240,7 +242,8 @@ class Game : AppCompatActivity() {
         questionText = findViewById(R.id.question_text)
         prevButton = findViewById(R.id.prev_button)
         nextButton = findViewById(R.id.next_button)
-
+        tvQuestionNumber = findViewById(R.id.tv_questionnumber)
+        tvHint = findViewById(R.id.tv_hint)
 
         var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         val difSet = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
@@ -291,6 +294,8 @@ class Game : AppCompatActivity() {
             gQ.wanswers = temp
         }
 
+        tvQuestionNumber.text = (currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
+
         inGameQuestions = inGameQuestions.shuffled().toMutableList()
 
         questionText.setText(currentQuestion.resID)
@@ -314,6 +319,7 @@ class Game : AppCompatActivity() {
 
         nextButton.setOnClickListener{_->
             currentQuestionIndex = (currentQuestionIndex + 1) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
+            tvQuestionNumber.text = (currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
             questionText.setText(currentQuestion.resID)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
@@ -326,6 +332,7 @@ class Game : AppCompatActivity() {
         prevButton.setOnClickListener{_->
             currentQuestionIndex = (intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5) + currentQuestionIndex -1 ) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
             questionText.setText(currentQuestion.resID)
+            tvQuestionNumber.text = (currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
             AnsButton1.setText(currentQuestion.wanswers[0])
