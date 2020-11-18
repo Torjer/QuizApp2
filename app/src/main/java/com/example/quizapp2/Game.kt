@@ -167,6 +167,7 @@ class Game : AppCompatActivity() {
     private var inGameQuestions = mutableListOf<Question>()
     private var selCategories = listOf<String>()
     private var HintsMax = 0
+    private var usedHints = 0
     private var scoreMultplier = 0
     private var totalScore = 0
     private var Aquestions = 0
@@ -316,9 +317,9 @@ class Game : AppCompatActivity() {
                 !hintButton.isEnabled
             }
             else {
+                usedHints++
                 hintButton.isEnabled
                 getHints = getHints -1
-                totalScore--
                 tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
             }
         }
@@ -370,7 +371,9 @@ class Game : AppCompatActivity() {
         }
         isAnswered(currentQuestion.qcolor)
         if(Aquestions==intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)){
-            finish() //sustituir por el score y la image
+            totalScore = totalScore*scoreMultplier - usedHints
+            if(totalScore<0){totalScore=0}
+            Toast.makeText(this,totalScore.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 }
