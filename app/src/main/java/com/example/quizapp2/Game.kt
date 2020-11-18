@@ -289,7 +289,7 @@ class Game : AppCompatActivity() {
 
         currentAnswers.clear()
         hintButton.setOnClickListener{_->
-            tv_hintnumber.text = (getHints -1).toString() + "/" + HintsMax
+            tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
             questionText.setTextColor(Color.parseColor("#0000FF"))
             if(getHints < 1){
                 !hintButton.isEnabled
