@@ -287,6 +287,64 @@ class Game : AppCompatActivity() {
         return temp
     }
 
+    private fun randomHint(dif: Int){
+        when(dif){
+            0 ->{
+                h1 = true
+                h2 = true
+            }
+            1->{
+                val mrandomNumber =(0..2).random()
+                when(mrandomNumber){
+                    0->{
+                        h1 = true
+                        h2 = true
+                        h3 = false
+                    }
+                    1->{
+                        h1 = true
+                        h2 = false
+                        h3 = true
+                    }
+                    2->{
+                        h1 = false
+                        h2 = true
+                        h3 = true
+                    }
+                }
+            }
+            2->{
+                val drandomNumber =(0..3).random()
+                when(drandomNumber){
+                    0->{
+                        h1 = true
+                        h2 = true
+                        h3 = false
+                        h4 = false
+                    }
+                    1->{
+                        h1 = false
+                        h2 = false
+                        h3 = true
+                        h4 = true
+                    }
+                    2->{
+                        h1 = true
+                        h2 = false
+                        h3 = false
+                        h4 = true
+                    }
+                    3->{
+                        h1 = false
+                        h2 = true
+                        h3 = true
+                        h4 = false
+                    }
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -372,8 +430,9 @@ class Game : AppCompatActivity() {
                 hintButton.isEnabled
                 getHints = getHints -1
                 tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
+                randomHint(difSet)
                 if((AnsButton1.text != getText(currentQuestion.answer)) && h1){
-                    !AnsButton1.isEnabled
+                    AnsButton1.isEnabled = false
                     AnsButton1.setTextColor(Color.parseColor("#0000FF"))
                     h1 = false
                     h2 = false
@@ -381,7 +440,7 @@ class Game : AppCompatActivity() {
                     h4 = false
                 }
                 else if((AnsButton2.text != getText(currentQuestion.answer)) && h2){
-                    !AnsButton2.isEnabled
+                    AnsButton2.isEnabled = false
                     AnsButton2.setTextColor(Color.parseColor("#0000FF"))
                     h1 = false
                     h2 = false
@@ -389,7 +448,7 @@ class Game : AppCompatActivity() {
                     h4 = false
                 }
                 else if((AnsButton3.text != getText(currentQuestion.answer)) && h3){
-                    !AnsButton3.isEnabled
+                    AnsButton3.isEnabled = false
                     AnsButton3.setTextColor(Color.parseColor("#0000FF"))
                     h1 = false
                     h2 = false
