@@ -174,6 +174,10 @@ class Game : AppCompatActivity() {
     private var currentQuestionIndex = 0
     private val currentQuestion : Question
         get() = inGameQuestions[currentQuestionIndex]
+    private var h1 = false
+    private var h2 = false
+    private var h3 = false
+    private var h4 = false
 
     private fun isAnswered(color: String){
         if(color != "#000000"){
@@ -215,13 +219,34 @@ class Game : AppCompatActivity() {
                 temp.shuffle()
                 temp.add(ans[1])
                 temp.add(ans[2])
+                h1 = true
+                h2 = true
                 return temp
+
             }
             1->{
                 scoreMultplier=2
                 temp.add(ans[1])
                 temp.shuffle()
                 temp.add(ans[2])
+                val mrandomNumber =(0..2).random()
+                when(mrandomNumber){
+                    0->{
+                        h1 = true
+                        h2 = true
+                        h3 = false
+                    }
+                    1->{
+                        h1 = true
+                        h2 = false
+                        h3 = true
+                    }
+                    2->{
+                        h1 = false
+                        h2 = true
+                        h3 = true
+                    }
+                }
                 return temp
             }
             2->{
@@ -229,6 +254,33 @@ class Game : AppCompatActivity() {
                 temp.add(ans[1])
                 temp.add(ans[2])
                 temp.shuffle()
+                val drandomNumber =(0..3).random()
+                when(drandomNumber){
+                    0->{
+                        h1 = true
+                        h2 = true
+                        h3 = false
+                        h4 = false
+                    }
+                    1->{
+                        h1 = false
+                        h2 = false
+                        h3 = true
+                        h4 = true
+                    }
+                    2->{
+                        h1 = true
+                        h2 = false
+                        h3 = false
+                        h4 = true
+                    }
+                    3->{
+                        h1 = false
+                        h2 = true
+                        h3 = true
+                        h4 = false
+                    }
+                }
                 return temp
             }
         }
@@ -312,7 +364,6 @@ class Game : AppCompatActivity() {
         AnsButton4.setText(currentQuestion.wanswers[3])
 
         hintButton.setOnClickListener{_->
-            questionText.setTextColor(Color.parseColor("#0000FF"))
             if(getHints < 1){
                 !hintButton.isEnabled
             }
@@ -321,6 +372,31 @@ class Game : AppCompatActivity() {
                 hintButton.isEnabled
                 getHints = getHints -1
                 tv_hintnumber.text = (getHints).toString() + "/" + HintsMax
+                if((AnsButton1.text != getText(currentQuestion.answer)) && h1){
+                    !AnsButton1.isEnabled
+                    AnsButton1.setTextColor(Color.parseColor("#0000FF"))
+                    h1 = false
+                    h2 = false
+                    h3 = false
+                    h4 = false
+                }
+                else if((AnsButton2.text != getText(currentQuestion.answer)) && h2){
+                    !AnsButton2.isEnabled
+                    AnsButton2.setTextColor(Color.parseColor("#0000FF"))
+                    h1 = false
+                    h2 = false
+                    h3 = false
+                    h4 = false
+                }
+                else if((AnsButton3.text != getText(currentQuestion.answer)) && h3){
+                    !AnsButton3.isEnabled
+                    AnsButton3.setTextColor(Color.parseColor("#0000FF"))
+                    h1 = false
+                    h2 = false
+                    h3 = false
+                    h4 = false
+                }
+                else {((AnsButton4.text != getText(currentQuestion.answer)) && h4)}
             }
         }
 
