@@ -288,7 +288,7 @@ class Game : AppCompatActivity() {
                 }
             }
             temp = difficultyChanges(difSet,gQ,temp)
-            gQ.wanswers = temp.shuffled()
+            gQ.wanswers = temp
         }
 
         inGameQuestions = inGameQuestions.shuffled().toMutableList()
@@ -317,10 +317,10 @@ class Game : AppCompatActivity() {
             questionText.setText(currentQuestion.resID)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
-            AnsButton1.setText(currentQuestion.wanswers[3])
-            AnsButton2.setText(currentQuestion.wanswers[2])
-            AnsButton3.setText(currentQuestion.wanswers[1])
-            AnsButton4.setText(currentQuestion.wanswers[0])
+            AnsButton1.setText(currentQuestion.wanswers[0])
+            AnsButton2.setText(currentQuestion.wanswers[1])
+            AnsButton3.setText(currentQuestion.wanswers[2])
+            AnsButton4.setText(currentQuestion.wanswers[3])
         }
 
         prevButton.setOnClickListener{_->
@@ -328,10 +328,10 @@ class Game : AppCompatActivity() {
             questionText.setText(currentQuestion.resID)
             questionText.setTextColor(Color.parseColor(currentQuestion.qcolor))
             isAnswered(currentQuestion.qcolor)
-            AnsButton1.setText(currentQuestion.wanswers[3])
-            AnsButton2.setText(currentQuestion.wanswers[2])
-            AnsButton3.setText(currentQuestion.wanswers[1])
-            AnsButton4.setText(currentQuestion.wanswers[0])
+            AnsButton1.setText(currentQuestion.wanswers[0])
+            AnsButton2.setText(currentQuestion.wanswers[1])
+            AnsButton3.setText(currentQuestion.wanswers[2])
+            AnsButton4.setText(currentQuestion.wanswers[3])
         }
     }
 
