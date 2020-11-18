@@ -9,6 +9,10 @@ import android.view.View
 import android.widget.*
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_game.*
+import android.app.AlertDialog
+import android.content.DialogInterface
+import kotlinx.android.synthetic.main.score_dialog.*
+
 
 class Game : AppCompatActivity() {
 
@@ -349,6 +353,8 @@ class Game : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+
+
         selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
         AnsButton1 = findViewById(R.id.opt1_button)
         AnsButton2 = findViewById(R.id.opt2_button)
@@ -506,8 +512,30 @@ class Game : AppCompatActivity() {
         }
         isAnswered(currentQuestion.qcolor)
         if(Aquestions==intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)){
+
             totalScore = totalScore*scoreMultplier - usedHints
             if(totalScore<0){totalScore=0}
+
+            //Diálogo de puntaje
+            val dialog = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
+            var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
+            var final_image = dialogView.findViewById<ImageView>(R.id.img_score)
+            final_score.text = "Final Score: " + totalScore.toString()
+            if (totalScore == 90) {
+                final_image.setImageResource(R.drawable.result1)
+            } else if (totalScore >= 60) {
+                final_image.setImageResource(R.drawable.result2)
+            } else if (totalScore >= 30) {
+                final_image.setImageResource(R.drawable.result3)
+            } else {
+                final_image.setImageResource(R.drawable.result4)
+            }
+            dialog.setView(dialogView)
+            dialog.setCancelable(false)
+            dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  })
+            dialog.show()
+
             Toast.makeText(this,totalScore.toString(), Toast.LENGTH_SHORT).show()
         }
     }
