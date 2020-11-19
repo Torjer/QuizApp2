@@ -110,7 +110,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -119,17 +119,16 @@
                 android:id="@+id/prev_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:drawableLeft="@drawable/ic_prev"
+                android:layout_marginLeft="6dp"
+                android:drawableBottom="@drawable/ic_prev"
                 android:text="@string/prev_text" />
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="207dp"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -170,7 +169,6 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -179,8 +177,8 @@
                 android:id="@+id/next_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:drawableRight="@drawable/ic_next"
+                android:layout_marginRight="6dp"
+                android:drawableBottom="@drawable/ic_next"
                 android:text="@string/next_text" />
 
 

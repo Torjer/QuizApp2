@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_main.view.*
+import androidx.activity.viewModels
 
 private const val OPTIONS_ACTIVITY_REQUEST_CODE = 0;
 private const val GAME_ACTIVITY_REQUEST_CODE = 1;
