@@ -159,6 +159,7 @@ class GameModel : ViewModel() {
     var h4 = false
 
     var firstTime = true
+    var finished = false
 
 
     fun difficultyChanges(dif: Int, quest: Question, ans: List<Int>): MutableList<Int> {
@@ -326,5 +327,6 @@ class GameModel : ViewModel() {
         h3 = false
         h4 = false
     }
+
 
 }

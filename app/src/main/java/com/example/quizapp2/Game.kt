@@ -190,6 +190,26 @@ class Game : AppCompatActivity() {
             AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
             AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
         }
+        if (gameModel.finished) {
+            val dialog = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
+            var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
+            var final_image = dialogView.findViewById<ImageView>(R.id.img_score)
+            final_score.text = "Final Score: " + gameModel.totalScore.toString()
+            if (gameModel.totalScore == 90) {
+                final_image.setImageResource(R.drawable.result1)
+            } else if (gameModel.totalScore >= 60) {
+                final_image.setImageResource(R.drawable.result2)
+            } else if (gameModel.totalScore >= 30) {
+                final_image.setImageResource(R.drawable.result3)
+            } else {
+                final_image.setImageResource(R.drawable.result4)
+            }
+            dialog.setView(dialogView)
+            dialog.setCancelable(false)
+            dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  })
+            dialog.show()
+        }
     }
 
     fun onAnswerClick(view: View){
@@ -240,6 +260,7 @@ class Game : AppCompatActivity() {
             dialog.setCancelable(false)
             dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  })
             dialog.show()
+            gameModel.finished = true
 
             Toast.makeText(this,gameModel.totalScore.toString(), Toast.LENGTH_SHORT).show()
         }
