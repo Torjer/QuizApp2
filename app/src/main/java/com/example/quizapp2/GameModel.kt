@@ -14,6 +14,10 @@ import androidx.lifecycle.ViewModel
 
 class GameModel : ViewModel() {
 
+    var categories : String = "All"
+    var difficulty : Int = 0
+    var nquestions : Int = 5
+    var ghints : Int = 0
 
 
     private val question = listOf<Question>(

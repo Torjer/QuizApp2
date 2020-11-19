@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 private const val OPTIONS_ACTIVITY_REQUEST_CODE = 0;
@@ -17,11 +18,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  playButton : Button
     private lateinit var setButton : Button
 
-    private var categories : String = "All"
-    private var difficulty : Int = 0
-    private var nquestions : Int = 5
-    private var ghints : Int = 0
 
+    val gameModel: GameModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +30,14 @@ class MainActivity : AppCompatActivity() {
 
         playButton.setOnClickListener { _ ->
             startActivityForResult(
-                Game.createIntent(this,categories,difficulty,nquestions,ghints),
+                Game.createIntent(this,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
                 GAME_ACTIVITY_REQUEST_CODE
             )
         }
 
         setButton.setOnClickListener { _ ->
             startActivityForResult(
-                Options.createIntent(this,difficulty),
+                Options.createIntent(this,gameModel.difficulty),
                 OPTIONS_ACTIVITY_REQUEST_CODE
             )
         }
@@ -51,11 +49,11 @@ class MainActivity : AppCompatActivity() {
             OPTIONS_ACTIVITY_REQUEST_CODE ->
                 when(resultCode){
                     Options.RESULT_SETTINGS_CONFIG -> {
-                        categories = data!!.getStringExtra(Options.EXTRA_CATEGORIES_TEXT).toString()
-                        difficulty = data.getIntExtra(Options.EXTRA_DIFFICULTY_LEVEL,0)
-                        nquestions = data.getIntExtra(Options.EXTRA_QUESTION_NUMBERS,5)
-                        ghints = data.getIntExtra(Options.EXTRA_HINT_OPTION,0)
-                        Toast.makeText(this,categories, Toast.LENGTH_SHORT).show()
+                        gameModel.categories = data!!.getStringExtra(Options.EXTRA_CATEGORIES_TEXT).toString()
+                        gameModel.difficulty = data.getIntExtra(Options.EXTRA_DIFFICULTY_LEVEL,0)
+                        gameModel.nquestions = data.getIntExtra(Options.EXTRA_QUESTION_NUMBERS,5)
+                        gameModel.ghints = data.getIntExtra(Options.EXTRA_HINT_OPTION,0)
+                        Toast.makeText(this,gameModel.categories, Toast.LENGTH_SHORT).show()
                     }
                 }
 
