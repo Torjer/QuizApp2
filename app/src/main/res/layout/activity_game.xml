@@ -91,7 +91,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:gravity="center"
-        android:textColor="#4C4B4B"
+        android:textColor="#222020"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="Question" />
