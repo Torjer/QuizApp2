@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.activity.viewModels
 
 class Options : AppCompatActivity() {
     companion object {
@@ -22,6 +23,7 @@ class Options : AppCompatActivity() {
             }
         }
     }
+    val gameModel: GameModel by viewModels()
 
     private val categoriesCheckboxes = mutableListOf<CheckBox>()
     private lateinit var allCheckB: CheckBox
@@ -38,8 +40,6 @@ class Options : AppCompatActivity() {
     private lateinit var spinQnum: Spinner
     private lateinit var spinHnum: Spinner
 
-    private var categories: String = "All"
-    private var diffID: Int = 0
     private var selectedCat: Int = 6
     private var items = mutableListOf<String>()
     private var i: Int = 5
@@ -87,10 +87,11 @@ class Options : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener { _ ->
-            val sendCat = categories
+            val sendCat = gameModel.optionCategories
+         //   val questionNumber
             setResult(RESULT_SETTINGS_CONFIG, Intent().apply {
                 putExtra(EXTRA_CATEGORIES_TEXT, sendCat)
-                putExtra(EXTRA_DIFFICULTY_LEVEL, diffID)
+                putExtra(EXTRA_DIFFICULTY_LEVEL, gameModel.diffID)
                 putExtra(EXTRA_QUESTION_NUMBERS, spinQnum.selectedItemPosition+5)
                 putExtra(EXTRA_HINT_OPTION, if (hintSwitch.isChecked) {spinHnum.selectedItemPosition + 1} else {0})
             })
@@ -101,7 +102,7 @@ class Options : AppCompatActivity() {
             finish()
         }
 
-        spinHnum.isEnabled = false
+        spinHnum.isEnabled = gameModel.enableSpinn
 
     }
 
@@ -110,13 +111,13 @@ class Options : AppCompatActivity() {
         val checked = difficultyRadio.isChecked
         when (difficultyRadio.id) {
             easyRadio.id -> if (checked) {
-                diffID = 0
+                gameModel.diffID = 0
             }
             normalRadio.id -> if (checked) {
-                diffID = 1
+                gameModel.diffID = 1
             }
             hardRadio.id -> if (checked) {
-                diffID = 2
+                gameModel.diffID = 2
             }
         }
     }
@@ -130,7 +131,7 @@ class Options : AppCompatActivity() {
                 categoriesCheckboxes.forEach { it.isChecked = true }
                 selectedCat = 6
                 allCheckB.isEnabled = false
-                categories = "All"
+                gameModel.optionCategories = "All"
             })
             else -> {
                 selectedCat = 0
@@ -149,7 +150,7 @@ class Options : AppCompatActivity() {
                         }
                     }
                 }
-                categories = categoryList.joinToString()
+                gameModel.optionCategories = categoryList.joinToString()
             }
         }
         if (selectedCat == 0) {
@@ -166,7 +167,8 @@ class Options : AppCompatActivity() {
     }
 
     fun onHintSwitchChange(view: View) {
-        spinHnum.isEnabled = !spinHnum.isEnabled
+        spinHnum.isEnabled = !gameModel.enableSpinn
+        gameModel.enableSpinn = !gameModel.enableSpinn
     }
 
 }

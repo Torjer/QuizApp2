@@ -20,6 +20,10 @@ class GameModel : ViewModel() {
     var ghints : Int = 0
 
 
+    var diffID: Int = 0
+    var optionCategories : String = "All"
+    var enableSpinn : Boolean = false
+
     private val question = listOf<Question>(
         Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,"#000000", listOf<Int>(0), listOf<Int>()),
         Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,"#000000", listOf<Int>(0), listOf<Int>()),

@@ -190,6 +190,7 @@ class Game : AppCompatActivity() {
             AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
             AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
         }
+
         if (gameModel.finished) {
             val dialog = AlertDialog.Builder(this)
             val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
@@ -207,7 +208,7 @@ class Game : AppCompatActivity() {
             }
             dialog.setView(dialogView)
             dialog.setCancelable(false)
-            dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  })
+            dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int -> gameModel.finished=false})
             dialog.show()
         }
     }
@@ -256,12 +257,11 @@ class Game : AppCompatActivity() {
             } else {
                 final_image.setImageResource(R.drawable.result4)
             }
+            gameModel.finished = true
             dialog.setView(dialogView)
             dialog.setCancelable(false)
-            dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  })
+            dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
             dialog.show()
-            gameModel.finished = true
-
             Toast.makeText(this,gameModel.totalScore.toString(), Toast.LENGTH_SHORT).show()
         }
     }
