@@ -150,17 +150,20 @@ class Game : AppCompatActivity() {
                 gameModel.randomHint(difSet)
                 if((AnsButton1.text != getText(gameModel.currentQuestion.answer)) && gameModel.h1){
                     AnsButton1.isEnabled = false
-                    AnsButton1.setTextColor(Color.parseColor("#0000FF"))
+                    AnsButton1.setTextColor(Color.parseColor("#FFFFFF"))
+                    AnsButton1.setBackgroundColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
                 }
                 else if((AnsButton2.text != getText(gameModel.currentQuestion.answer)) && gameModel.h2){
                     AnsButton2.isEnabled = false
-                    AnsButton2.setTextColor(Color.parseColor("#0000FF"))
+                    AnsButton2.setTextColor(Color.parseColor("#FFFFFF"))
+                    AnsButton2.setBackgroundColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
                 }
                 else if((AnsButton3.text != getText(gameModel.currentQuestion.answer)) && gameModel.h3){
                     AnsButton3.isEnabled = false
-                    AnsButton3.setTextColor(Color.parseColor("#0000FF"))
+                    AnsButton3.setTextColor(Color.parseColor("#FFFFFF"))
+                    AnsButton3.setBackgroundColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
                 }
                 else {((AnsButton4.text != getText(gameModel.currentQuestion.answer)) && gameModel.h4)}

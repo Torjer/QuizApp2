@@ -118,6 +118,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textColor="#2f4950"
+                android:background="#8ADDAE"
                 android:onClick="onAnswerClick"
                 android:text="Option 1" />
 
@@ -126,6 +128,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textColor="#8ADDAE"
+                android:background="#2f4950"
                 android:onClick="onAnswerClick"
                 android:text="Option 2" />
 
@@ -134,6 +138,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textColor="#2f4950"
+                android:background="#8ADDAE"
                 android:onClick="onAnswerClick"
                 android:text="Option 3" />
 
@@ -142,6 +148,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textColor="#8ADDAE"
+                android:background="#2f4950"
                 android:onClick="onAnswerClick"
                 android:text="Option 4" />
         </LinearLayout>
@@ -169,6 +177,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
+                android:textColor="#2f4950"
+                android:background="#8ADDAE"
                 android:drawableBottom="@drawable/ic_prev"
                 android:text="@string/prev_text" />
         </LinearLayout>
@@ -182,6 +192,8 @@
                 android:id="@+id/hint_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#8ADDAE"
+                android:background="#2f4950"
                 android:text="@string/use_text" />
         </LinearLayout>
 
@@ -197,6 +209,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="6dp"
+                android:textColor="#2f4950"
+                android:background="#8ADDAE"
                 android:drawableBottom="@drawable/ic_next"
                 android:text="@string/next_text" />
 
