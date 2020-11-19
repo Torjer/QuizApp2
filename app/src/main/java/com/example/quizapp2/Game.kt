@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_game.*
 import android.app.AlertDialog
 import android.content.DialogInterface
 import kotlinx.android.synthetic.main.score_dialog.*
+import androidx.activity.viewModels
 
 
 class Game : AppCompatActivity() {
@@ -347,7 +348,7 @@ class Game : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-
+        val gameModel: GameModel by viewModels()
 
         selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
         AnsButton1 = findViewById(R.id.opt1_button)
