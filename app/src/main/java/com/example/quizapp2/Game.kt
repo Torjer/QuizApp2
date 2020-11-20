@@ -61,6 +61,10 @@ class Game : AppCompatActivity() {
         }
         else if(quest.qcolor == "#0000FF"){
             hintButton.isEnabled = true
+            AnsButton1.isEnabled = true
+            AnsButton2.isEnabled = true
+            AnsButton3.isEnabled = true
+            AnsButton4.isEnabled = true
             AnsButton1.setTextColor(quest.butanswered[0])
             AnsButton2.setTextColor(quest.butanswered[1])
             AnsButton3.setTextColor(quest.butanswered[2])
@@ -111,6 +115,7 @@ class Game : AppCompatActivity() {
         val difSet = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
 
         gameModel.HintsMax = getHints
+        gameModel.remainingHints = gameModel.HintsMax-gameModel.usedHints
 
         when(difSet){
             0->{
@@ -129,7 +134,7 @@ class Game : AppCompatActivity() {
             hintButton.setVisibility(View.VISIBLE)
             tv_hintnumber.setVisibility(View.VISIBLE)
             tv_hint.setVisibility(View.VISIBLE)
-            tv_hintnumber.text = (getHints).toString() + "/" + gameModel.HintsMax
+            tv_hintnumber.text = (gameModel.HintsMax-gameModel.usedHints).toString() + "/" + gameModel.HintsMax
         }
 
         if (gameModel.firstTime) {
@@ -158,16 +163,22 @@ class Game : AppCompatActivity() {
         AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
         AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
 
+        if(gameModel.answered) {
+            isAnswered(gameModel.currentQuestion)
+        }
+
+        gameModel.answered = true
+
         hintButton.setOnClickListener{_->
-            if(getHints < 1){
+            if(gameModel.remainingHints < 1){
                 hintButton.isEnabled = false
             }
             else {
                 gameModel.usedHints++
                 hintButton.isEnabled
                 gameModel.currentQuestion.qcolor ="#0000FF"
-                getHints = getHints -1
-                tv_hintnumber.text = (getHints).toString() + "/" + gameModel.HintsMax
+                gameModel.remainingHints--
+                tv_hintnumber.text = (gameModel.remainingHints).toString() + "/" + gameModel.HintsMax
                 gameModel.randomHint(difSet)
                 if((AnsButton1.text != getText(gameModel.currentQuestion.answer)) && gameModel.h1){
                     AnsButton1.isEnabled = false

@@ -155,6 +155,7 @@ class GameModel : ViewModel() {
     var selCategories = listOf<String>()
     var HintsMax = 0
     var usedHints = 0
+    var remainingHints = 0
     var scoreMultplier = 0
     var totalScore = 0
     var Aquestions = 0
@@ -168,6 +169,7 @@ class GameModel : ViewModel() {
 
     var firstTime = true
     var finished = false
+    var answered = false
 
 
     fun difficultyChanges(dif: Int, quest: Question, ans: List<Int>): MutableList<Int> {
