@@ -22,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:checked="true"
         android:enabled="false"
         android:padding="10dp"
         android:text="@string/all_text" />
@@ -45,7 +44,6 @@
                 android:id="@+id/art_checkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:padding="10dp"
                 android:text="@string/art_text" />
 
@@ -54,7 +52,6 @@
                 android:id="@+id/science_checkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:padding="10dp"
                 android:text="@string/science_text" />
 
@@ -63,7 +60,6 @@
                 android:id="@+id/history_checkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:padding="10dp"
                 android:text="@string/history_text" />
 
@@ -81,7 +77,6 @@
                 android:id="@+id/literature_checkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:padding="10dp"
                 android:text="@string/literature_text" />
 
@@ -90,7 +85,6 @@
                 android:id="@+id/movies_checkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:padding="10dp"
                 android:text="@string/movies_text" />
 
@@ -99,7 +93,6 @@
                 android:id="@+id/geography_checkb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:padding="10dp"
                 android:text="@string/geography_text" />
 

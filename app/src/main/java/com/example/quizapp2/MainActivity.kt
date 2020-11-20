@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         setButton.setOnClickListener { _ ->
             startActivityForResult(
-                Options.createIntent(this,gameModel.difficulty),
+                Options.createIntent(this,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
                 OPTIONS_ACTIVITY_REQUEST_CODE
             )
         }
@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                         gameModel.difficulty = data.getIntExtra(Options.EXTRA_DIFFICULTY_LEVEL,0)
                         gameModel.nquestions = data.getIntExtra(Options.EXTRA_QUESTION_NUMBERS,5)
                         gameModel.ghints = data.getIntExtra(Options.EXTRA_HINT_OPTION,0)
-                        Toast.makeText(this,gameModel.categories, Toast.LENGTH_SHORT).show()
                     }
                 }
 

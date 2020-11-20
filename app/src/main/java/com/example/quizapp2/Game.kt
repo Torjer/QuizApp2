@@ -294,7 +294,6 @@ class Game : AppCompatActivity() {
             dialog.setCancelable(false)
             dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
             dialog.show()
-            Toast.makeText(this,gameModel.totalScore.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 }

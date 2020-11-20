@@ -17,9 +17,12 @@ class Options : AppCompatActivity() {
         const val EXTRA_QUESTION_NUMBERS = "com.example.quizapp2.question_number"
         const val EXTRA_HINT_OPTION = "com.example.quizapp2.hint_option"
 
-        fun createIntent(packageContext: Context, difficulty: Int): Intent {
+        fun createIntent(packageContext: Context, category: String, difficulty: Int, EQN: Int, Hints: Int): Intent {
             return Intent(packageContext, Options::class.java).apply {
                 putExtra(EXTRA_DIFFICULTY_LEVEL, difficulty)
+                putExtra(EXTRA_CATEGORIES_TEXT, category)
+                putExtra(EXTRA_QUESTION_NUMBERS, EQN)
+                putExtra(EXTRA_HINT_OPTION,Hints)
             }
         }
     }
@@ -78,6 +81,30 @@ class Options : AppCompatActivity() {
         spinHnum.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, hintsItems)
 
+        spinHnum.isEnabled = gameModel.enableSpinn
+
+        if(intent.getIntExtra(EXTRA_HINT_OPTION, 0)!=0) {
+            hintSwitch.isChecked = true
+            spinHnum.isEnabled = true
+            gameModel.enableSpinn = true
+            spinHnum.setSelection(intent.getIntExtra(EXTRA_HINT_OPTION,0)-1)
+        }
+        spinQnum.setSelection(intent.getIntExtra(EXTRA_QUESTION_NUMBERS,0)-5)
+
+        val selcategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
+
+        selcategories.forEach{sel->
+            categoriesCheckboxes.forEach {
+                if(it.text==sel) {
+                    it.isChecked=true
+                }
+                else if(sel == "All"){
+                    it.isChecked=true
+                    allCheckB.isChecked=true
+                }
+            }
+        }
+
         val getDifficulty = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL, 0)
 
         when (getDifficulty) {
@@ -101,9 +128,6 @@ class Options : AppCompatActivity() {
         cancelButton.setOnClickListener { _ ->
             finish()
         }
-
-        spinHnum.isEnabled = gameModel.enableSpinn
-
     }
 
     fun onDifficultyChange(view: View) {
