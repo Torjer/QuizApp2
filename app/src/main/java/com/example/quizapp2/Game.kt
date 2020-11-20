@@ -228,7 +228,11 @@ class Game : AppCompatActivity() {
             val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
             var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
             var final_image = dialogView.findViewById<ImageView>(R.id.img_score)
+            var final_hints_used = dialogView.findViewById<TextView>(R.id.tv_hints_used)
             final_score.text = "Final Score: " + gameModel.totalScore.toString()
+            if (gameModel.usedHints > 0) {
+                final_hints_used.text = "Hints used: " + gameModel.usedHints.toString()
+            }
             if (gameModel.totalScore == 90) {
                 final_image.setImageResource(R.drawable.result1)
             } else if (gameModel.totalScore >= 60) {
@@ -279,7 +283,11 @@ class Game : AppCompatActivity() {
             val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
             var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
             var final_image = dialogView.findViewById<ImageView>(R.id.img_score)
+            var final_hints_used = dialogView.findViewById<TextView>(R.id.tv_hints_used)
             final_score.text = "Final Score: " + gameModel.totalScore.toString()
+            if (gameModel.usedHints > 0) {
+                final_hints_used.text = "Hints used: " + gameModel.usedHints.toString()
+            }
             if (gameModel.totalScore == 90) {
                 final_image.setImageResource(R.drawable.result1)
             } else if (gameModel.totalScore >= 60) {

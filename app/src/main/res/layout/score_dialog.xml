@@ -26,4 +26,12 @@
         android:textSize="30dp"
         android:text="Final score"/>
 
+    <TextView
+        android:id="@+id/tv_hints_used"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:text=""/>
+
 </LinearLayout>
