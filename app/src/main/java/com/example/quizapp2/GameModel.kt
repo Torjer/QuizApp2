@@ -307,7 +307,6 @@ class GameModel : ViewModel() {
         }
     }
 
-
     fun chooseQuestions() {
         selCategories.forEach { cat ->
             if(cat.equals("All")){
@@ -323,7 +322,6 @@ class GameModel : ViewModel() {
             }
         }
     }
-
 
     fun shuffleQuestions() {
         inGameQuestions = inGameQuestions.shuffled().toMutableList()

@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_game.*
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.drawable.ColorDrawable
 import kotlinx.android.synthetic.main.score_dialog.*
 import androidx.activity.viewModels
 
@@ -47,25 +48,44 @@ class Game : AppCompatActivity() {
     val gameModel: GameModel by viewModels()
 
     private fun isAnswered(quest: Question){
-        if(quest.qcolor != "#000000"){
+        if(quest.qcolor == "#5f6f2e" || quest.qcolor == "#e30118"){
             AnsButton1.isEnabled = false
             AnsButton2.isEnabled = false
             AnsButton3.isEnabled = false
             AnsButton4.isEnabled = false
+            hintButton.isEnabled = false
             AnsButton1.setTextColor(quest.butanswered[0])
             AnsButton2.setTextColor(quest.butanswered[1])
             AnsButton3.setTextColor(quest.butanswered[2])
             AnsButton4.setTextColor(quest.butanswered[3])
         }
-        else{
-            AnsButton1.setTextColor(Color.parseColor("#000000"))
-            AnsButton2.setTextColor(Color.parseColor("#000000"))
-            AnsButton3.setTextColor(Color.parseColor("#000000"))
-            AnsButton4.setTextColor(Color.parseColor("#000000"))
+        else if(quest.qcolor == "#0000FF"){
+            hintButton.isEnabled = true
+            AnsButton1.setTextColor(quest.butanswered[0])
+            AnsButton2.setTextColor(quest.butanswered[1])
+            AnsButton3.setTextColor(quest.butanswered[2])
+            AnsButton4.setTextColor(quest.butanswered[3])
+            var temp = mutableListOf<Button>()
+            temp.add(AnsButton1)
+            temp.add(AnsButton2)
+            temp.add(AnsButton3)
+            temp.add(AnsButton4)
+            temp.forEach {
+                if(it.currentTextColor == questionText.currentTextColor){
+                    it.isEnabled = false
+                }
+            }
+        }
+        else if(quest.qcolor == "#000000"){
+            AnsButton2.setTextColor(Color.parseColor("#8ADDAE"))
+            AnsButton3.setTextColor(Color.parseColor("#2f4950"))
+            AnsButton4.setTextColor(Color.parseColor("#8ADDAE"))
+            AnsButton1.setTextColor(Color.parseColor("#2f4950"))
             AnsButton1.isEnabled = true
             AnsButton2.isEnabled = true
             AnsButton3.isEnabled = true
             AnsButton4.isEnabled = true
+            hintButton.isEnabled = true
         }
     }
 
@@ -140,34 +160,43 @@ class Game : AppCompatActivity() {
 
         hintButton.setOnClickListener{_->
             if(getHints < 1){
-                !hintButton.isEnabled
+                hintButton.isEnabled = false
             }
             else {
                 gameModel.usedHints++
                 hintButton.isEnabled
+                gameModel.currentQuestion.qcolor ="#0000FF"
                 getHints = getHints -1
                 tv_hintnumber.text = (getHints).toString() + "/" + gameModel.HintsMax
                 gameModel.randomHint(difSet)
                 if((AnsButton1.text != getText(gameModel.currentQuestion.answer)) && gameModel.h1){
                     AnsButton1.isEnabled = false
-                    AnsButton1.setTextColor(Color.parseColor("#FFFFFF"))
-                    AnsButton1.setBackgroundColor(Color.parseColor("#0000FF"))
+                    AnsButton1.setTextColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
                 }
                 else if((AnsButton2.text != getText(gameModel.currentQuestion.answer)) && gameModel.h2){
                     AnsButton2.isEnabled = false
-                    AnsButton2.setTextColor(Color.parseColor("#FFFFFF"))
-                    AnsButton2.setBackgroundColor(Color.parseColor("#0000FF"))
+                    AnsButton2.setTextColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
                 }
                 else if((AnsButton3.text != getText(gameModel.currentQuestion.answer)) && gameModel.h3){
                     AnsButton3.isEnabled = false
-                    AnsButton3.setTextColor(Color.parseColor("#FFFFFF"))
-                    AnsButton3.setBackgroundColor(Color.parseColor("#0000FF"))
+                    AnsButton3.setTextColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
                 }
-                else {((AnsButton4.text != getText(gameModel.currentQuestion.answer)) && gameModel.h4)}
+                else if((AnsButton4.text != getText(gameModel.currentQuestion.answer)) && gameModel.h4){
+                    AnsButton4.setTextColor(Color.parseColor("#0000FF"))
+                    gameModel.makeHFalse()
+                }
             }
+            var temp = mutableListOf<Int>()
+            temp.add(AnsButton1.currentTextColor)
+            temp.add(AnsButton2.currentTextColor)
+            temp.add(AnsButton3.currentTextColor)
+            temp.add(AnsButton4.currentTextColor)
+
+            gameModel.currentQuestion.butanswered = temp
+            questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
         }
 
         nextButton.setOnClickListener{_->
@@ -230,8 +259,8 @@ class Game : AppCompatActivity() {
             questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
         }
         selAnswer.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
-
         var temp = mutableListOf<Int>()
+
         temp.add(AnsButton1.currentTextColor)
         temp.add(AnsButton2.currentTextColor)
         temp.add(AnsButton3.currentTextColor)
