@@ -37,6 +37,6 @@
             android:background="#8ADDAE"
             android:textSize="25dp"
             android:padding="10dp"
-            android:text="@string/setting_text"/>
+            android:text="@string/options_text"/>
     </LinearLayout>
 </LinearLayout>
