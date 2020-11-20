@@ -48,7 +48,7 @@ class Game : AppCompatActivity() {
     val gameModel: GameModel by viewModels()
 
     private fun isAnswered(quest: Question){
-        if(quest.qcolor == "#5f6f2e" || quest.qcolor == "#e30118"){
+        if(quest.qcolor == "#008000" || quest.qcolor == "#e30118"){
             AnsButton1.isEnabled = false
             AnsButton2.isEnabled = false
             AnsButton3.isEnabled = false
@@ -239,7 +239,11 @@ class Game : AppCompatActivity() {
             val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
             var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
             var final_image = dialogView.findViewById<ImageView>(R.id.img_score)
+            var final_hints_used = dialogView.findViewById<TextView>(R.id.tv_hints_used)
             final_score.text = "Final Score: " + gameModel.totalScore.toString()
+            if (gameModel.usedHints > 0) {
+                final_hints_used.text = "Hints used: " + gameModel.usedHints.toString()
+            }
             if (gameModel.totalScore == 90) {
                 final_image.setImageResource(R.drawable.result1)
             } else if (gameModel.totalScore >= 60) {
@@ -260,7 +264,7 @@ class Game : AppCompatActivity() {
         val selAnswer = view as Button
         gameModel.Aquestions++
         if(selAnswer.text == getText(gameModel.currentQuestion.answer)){
-            gameModel.currentQuestion.qcolor = "#5f6f2e"
+            gameModel.currentQuestion.qcolor = "#008000"
             questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
             gameModel.totalScore++
 
@@ -290,7 +294,11 @@ class Game : AppCompatActivity() {
             val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
             var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
             var final_image = dialogView.findViewById<ImageView>(R.id.img_score)
+            var final_hints_used = dialogView.findViewById<TextView>(R.id.tv_hints_used)
             final_score.text = "Final Score: " + gameModel.totalScore.toString()
+            if (gameModel.usedHints > 0) {
+                final_hints_used.text = "Hints used: " + gameModel.usedHints.toString()
+            }
             if (gameModel.totalScore == 90) {
                 final_image.setImageResource(R.drawable.result1)
             } else if (gameModel.totalScore >= 60) {
