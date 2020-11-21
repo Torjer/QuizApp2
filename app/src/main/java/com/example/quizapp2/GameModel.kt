@@ -171,6 +171,8 @@ class GameModel : ViewModel() {
     var finished = false
     var answered = false
 
+    var HPQ = 0
+
 
     fun difficultyChanges(dif: Int, quest: Question, ans: List<Int>): MutableList<Int> {
 
@@ -183,8 +185,6 @@ class GameModel : ViewModel() {
                 temp.shuffle()
                 temp.add(ans[1])
                 temp.add(ans[2])
-                h1 = true
-                h2 = true
                 return temp
 
             }
@@ -193,24 +193,6 @@ class GameModel : ViewModel() {
                 temp.add(ans[1])
                 temp.shuffle()
                 temp.add(ans[2])
-                val mrandomNumber =(0..2).random()
-                when(mrandomNumber){
-                    0->{
-                        h1 = true
-                        h2 = true
-                        h3 = false
-                    }
-                    1->{
-                        h1 = true
-                        h2 = false
-                        h3 = true
-                    }
-                    2->{
-                        h1 = false
-                        h2 = true
-                        h3 = true
-                    }
-                }
                 return temp
             }
             2->{
@@ -218,37 +200,19 @@ class GameModel : ViewModel() {
                 temp.add(ans[1])
                 temp.add(ans[2])
                 temp.shuffle()
-                val drandomNumber =(0..3).random()
-                when(drandomNumber){
-                    0->{
-                        h1 = true
-                        h2 = true
-                        h3 = false
-                        h4 = false
-                    }
-                    1->{
-                        h1 = false
-                        h2 = false
-                        h3 = true
-                        h4 = true
-                    }
-                    2->{
-                        h1 = true
-                        h2 = false
-                        h3 = false
-                        h4 = true
-                    }
-                    3->{
-                        h1 = false
-                        h2 = true
-                        h3 = true
-                        h4 = false
-                    }
-                }
                 return temp
             }
         }
         return temp
+    }
+
+    fun hintsPerQ(diff:Int){
+        when(diff){
+            0-> HPQ = 1
+            1-> HPQ = 2
+            2-> HPQ = 3
+        }
+
     }
 
     fun randomHint(dif: Int){

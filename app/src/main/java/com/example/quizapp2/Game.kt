@@ -93,6 +93,18 @@ class Game : AppCompatActivity() {
         }
     }
 
+    private fun autoAnswer(){
+        if (AnsButton1.text == getText(gameModel.currentQuestion.answer)) {
+            AnsButton1.callOnClick()
+        } else if (AnsButton2.text == getText(gameModel.currentQuestion.answer)) {
+            AnsButton2.callOnClick()
+        } else if (AnsButton3.text == getText(gameModel.currentQuestion.answer)) {
+            AnsButton3.callOnClick()
+        } else if (AnsButton4.text == getText(gameModel.currentQuestion.answer)) {
+            AnsButton4.callOnClick()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -139,7 +151,7 @@ class Game : AppCompatActivity() {
 
         if (gameModel.firstTime) {
             gameModel.chooseQuestions()
-
+            gameModel.hintsPerQ(difSet)
             gameModel.inGameQuestions.forEach{ gQ->
                 var temp = mutableListOf<Int>()
                 gameModel.ans.forEach {
@@ -176,38 +188,49 @@ class Game : AppCompatActivity() {
             else {
                 gameModel.usedHints++
                 hintButton.isEnabled
-                gameModel.currentQuestion.qcolor ="#0000FF"
+                gameModel.currentQuestion.qcolor = "#0000FF"
                 gameModel.remainingHints--
-                tv_hintnumber.text = (gameModel.remainingHints).toString() + "/" + gameModel.HintsMax
+                tv_hintnumber.text =
+                    (gameModel.remainingHints).toString() + "/" + gameModel.HintsMax
                 gameModel.randomHint(difSet)
-                if((AnsButton1.text != getText(gameModel.currentQuestion.answer)) && gameModel.h1){
+                if ((AnsButton1.text != getText(gameModel.currentQuestion.answer)) && gameModel.h1) {
                     AnsButton1.isEnabled = false
                     AnsButton1.setTextColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
-                }
-                else if((AnsButton2.text != getText(gameModel.currentQuestion.answer)) && gameModel.h2){
+                } else if ((AnsButton2.text != getText(gameModel.currentQuestion.answer)) && gameModel.h2) {
                     AnsButton2.isEnabled = false
                     AnsButton2.setTextColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
-                }
-                else if((AnsButton3.text != getText(gameModel.currentQuestion.answer)) && gameModel.h3){
+                } else if ((AnsButton3.text != getText(gameModel.currentQuestion.answer)) && gameModel.h3) {
                     AnsButton3.isEnabled = false
                     AnsButton3.setTextColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
-                }
-                else if((AnsButton4.text != getText(gameModel.currentQuestion.answer)) && gameModel.h4){
+                } else if ((AnsButton4.text != getText(gameModel.currentQuestion.answer)) && gameModel.h4) {
+                    AnsButton4.isEnabled = false
                     AnsButton4.setTextColor(Color.parseColor("#0000FF"))
                     gameModel.makeHFalse()
                 }
-            }
-            var temp = mutableListOf<Int>()
-            temp.add(AnsButton1.currentTextColor)
-            temp.add(AnsButton2.currentTextColor)
-            temp.add(AnsButton3.currentTextColor)
-            temp.add(AnsButton4.currentTextColor)
+                var temp = mutableListOf<Int>()
+                temp.add(AnsButton1.currentTextColor)
+                temp.add(AnsButton2.currentTextColor)
+                temp.add(AnsButton3.currentTextColor)
+                temp.add(AnsButton4.currentTextColor)
 
-            gameModel.currentQuestion.butanswered = temp
-            questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
+                gameModel.currentQuestion.butanswered = temp
+                questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
+
+                var i = 0
+                gameModel.currentQuestion.butanswered.forEach {
+                    if (it == Color.parseColor("#0000FF")) {
+                        i++
+                    }
+                }
+                when(difSet){
+                    0-> if (i==1){autoAnswer()}
+                    1-> if (i==2){autoAnswer()}
+                    2-> if (i==3){autoAnswer()}
+                }
+            }
         }
 
         nextButton.setOnClickListener{_->
@@ -288,7 +311,6 @@ class Game : AppCompatActivity() {
 
             gameModel.totalScore = gameModel.totalScore*gameModel.scoreMultplier - gameModel.usedHints
             if(gameModel.totalScore<0){gameModel.totalScore=0}
-
             //Diálogo de puntaje
             val dialog = AlertDialog.Builder(this)
             val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
