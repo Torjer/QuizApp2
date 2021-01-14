@@ -109,7 +109,6 @@ class Game : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-
         gameModel.selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
 
         AnsButton1 = findViewById(R.id.opt1_button)
@@ -281,6 +280,18 @@ class Game : AppCompatActivity() {
             dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int -> gameModel.finished=false})
             dialog.show()
         }
+    }
+
+    override fun onBackPressed() {
+        val dialog = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
+        var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
+        final_score.text = "¿Do you want to exit?"
+        dialog.setView(dialogView)
+        dialog.setCancelable(false)
+        dialog.setNegativeButton("NO", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
+        dialog.setPositiveButton("YES", { dialogInterface: DialogInterface, i: Int ->  super.onBackPressed()})
+        dialog.show()
     }
 
     fun onAnswerClick(view: View){

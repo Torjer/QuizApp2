@@ -15,8 +15,7 @@
     <ImageView
         android:id="@+id/img_score"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@drawable/result4" />
+        android:layout_height="100dp" />
 
     <TextView
         android:id="@+id/tv_score"
