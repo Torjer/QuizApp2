@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">QuizApp2</string>
+    <string name="user_text">User</string>
+    <string name="userL_text">Users</string>
+    <string name="ok_text">Ok</string>
+    <string name="add_text">Add</string>
     <string name="play_text">Play</string>
     <string name="setting_text">Settings</string>
     <string name="save_text">Save</string>

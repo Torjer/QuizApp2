@@ -13,13 +13,14 @@ import androidx.activity.viewModels
 
 private const val OPTIONS_ACTIVITY_REQUEST_CODE = 0;
 private const val GAME_ACTIVITY_REQUEST_CODE = 1;
+private const val USER_ACTIVITY_REQUEST_CODE = 2;
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var  playButton : Button
     private lateinit var setButton : Button
-
-
+    private lateinit var userButton : Button
+    private var SelUser: String = " "
     val gameModel: GameModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         playButton = findViewById(R.id.play_button)
         setButton = findViewById(R.id.settings_button)
+        userButton = findViewById(R.id.user_button)
 
         playButton.setOnClickListener { _ ->
             startActivityForResult(
@@ -40,6 +42,13 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(
                 Options.createIntent(this,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
                 OPTIONS_ACTIVITY_REQUEST_CODE
+            )
+        }
+
+        userButton.setOnClickListener { _ ->
+            startActivityForResult(
+                UserConfig.createIntent(this, SelUser),
+                USER_ACTIVITY_REQUEST_CODE
             )
         }
 
