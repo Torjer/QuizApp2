@@ -6,6 +6,8 @@ import androidx.core.content.contentValuesOf
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.viewModels
+import com.example.quizapp2.Game.Companion.createIntent
+import com.example.quizapp2.Options.Companion.createIntent
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -17,11 +19,15 @@ import java.security.KeyStore
 private const val OPTIONS_ACTIVITY_REQUEST_CODE = 0;
 private const val GAME_ACTIVITY_REQUEST_CODE = 1;
 private const val USER_ACTIVITY_REQUEST_CODE = 2;
+private const val SCORES_ACTIVITY_REQUEST_CODE = 3;
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var  playButton : Button
     private lateinit var setButton : Button
+    private lateinit var scoreButton: Button
+
+
     private lateinit var userButton : Button
     private var SelUser: String = " "
     private var UserList = mutableListOf<String>()
@@ -34,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         playButton = findViewById(R.id.play_button)
         setButton = findViewById(R.id.settings_button)
+        scoreButton = findViewById(R.id.scores_button)
         userButton = findViewById(R.id.user_button)
 
         Stetho.initializeWithDefaults(this)
@@ -63,6 +70,13 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(
                 Options.createIntent(this,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
                 OPTIONS_ACTIVITY_REQUEST_CODE
+            )
+        }
+
+        scoreButton.setOnClickListener { _->
+            startActivityForResult(
+            Scores.createIntent(this, gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
+                SCORES_ACTIVITY_REQUEST_CODE
             )
         }
 
