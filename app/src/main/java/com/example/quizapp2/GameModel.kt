@@ -174,6 +174,7 @@ class GameModel : ViewModel() {
     var HPQ = 0
 
 
+
     fun difficultyChanges(dif: Int, quest: Question, ans: List<Int>): MutableList<Int> {
 
         var temp = mutableListOf<Int>()

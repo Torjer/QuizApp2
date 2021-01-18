@@ -16,11 +16,14 @@ import kotlinx.android.synthetic.main.activity_user_config.*
 class UserConfig : AppCompatActivity() {
 
     companion object{
+        const val RESULT_SETTINGS_CONFIG = RESULT_FIRST_USER
         const val EXTRA_SELECTED_USER = "com.example.quizapp2.selected_user"
+        const val EXTRA_LIST_USERS = "com.example.quizapp2.list_user"
 
-        fun createIntent(packageContext: Context, SelUser:String): Intent {
+        fun createIntent(packageContext: Context, SelUser:String, Users : Array<String>): Intent {
             return Intent(packageContext, UserConfig::class.java).apply {
                 putExtra(EXTRA_SELECTED_USER, SelUser)
+                putExtra(EXTRA_LIST_USERS, Users)
             }
         }
     }
@@ -37,6 +40,12 @@ class UserConfig : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_config)
+
+        val LOfUsers = intent.getStringArrayExtra(EXTRA_LIST_USERS)
+
+        LOfUsers?.forEach {
+            Usuarios.add(it)
+        }
 
         LView = findViewById(R.id.list_view)
         AddBtn = findViewById(R.id.add_btn)
@@ -83,6 +92,10 @@ class UserConfig : AppCompatActivity() {
         }
 
         CnBtn.setOnClickListener { _ ->
+            setResult(Options.RESULT_SETTINGS_CONFIG, Intent().apply {
+                putExtra(EXTRA_SELECTED_USER, SelectedUser)
+                putExtra(EXTRA_LIST_USERS, Usuarios.toTypedArray())
+            })
             finish()
         }
     }
