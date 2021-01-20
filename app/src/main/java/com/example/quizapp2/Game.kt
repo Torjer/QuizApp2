@@ -14,7 +14,7 @@ import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import kotlinx.android.synthetic.main.score_dialog.*
 import androidx.activity.viewModels
-
+import com.example.quizapp2.db.Player
 
 class Game : AppCompatActivity() {
 
@@ -290,8 +290,8 @@ class Game : AppCompatActivity() {
         final_score.text = "¿Do you want to exit?"
         dialog.setView(dialogView)
         dialog.setCancelable(false)
-        dialog.setNegativeButton("YES", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
-        dialog.setPositiveButton("NO", { dialogInterface: DialogInterface, i: Int ->  super.onBackPressed()})
+        dialog.setPositiveButton("NO", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
+        dialog.setNegativeButton("YES", { dialogInterface: DialogInterface, i: Int ->  super.onBackPressed()})
         dialog.show()
     }
 
