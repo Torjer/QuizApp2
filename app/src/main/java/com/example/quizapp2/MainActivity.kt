@@ -55,9 +55,14 @@ class MainActivity : AppCompatActivity() {
                    super.onCreate(db)
                    db.execSQL("INSERT INTO users(id, username, selected) VALUES(0, 'Default 1', 0)")
                    db.execSQL("INSERT INTO users(id, username, selected) VALUES(1, 'Default 2', 0)")
+                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 1','mm/dd/yy',00,false)")
+                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 2','mm/dd/yy',00,true)")
+                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 3','mm/dd/yy',00,false)")
+                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 4','mm/dd/yy',00,false)")
                } }
             ).build()
         var users = db.userDao().getUsers()
+        var scoresInfo = db.playerDao().getInfo()
 
         playButton.setOnClickListener { _ ->
             startActivityForResult(

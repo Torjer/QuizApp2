@@ -42,3 +42,6 @@ interface UserDao {
     @Delete
     fun deleteUser(user:List<User>)
 }
+interface PlayersDao {
+
+}

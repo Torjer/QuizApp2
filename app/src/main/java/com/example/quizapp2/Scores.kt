@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.quizapp2.db.Player
 
 class Scores : AppCompatActivity() {
 
@@ -32,15 +33,16 @@ class Scores : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scores)
-
+/*
         val playersArray = arrayOf(
             Player("Pepe", "10/08/20", 10, true),
-            Player("Javier","08/08/21", 15, false),
-            Player("Erika","05/24/19",20,false),
-            Player("Pedro","07/10/20",40,true),
-            Player("Miguel","02/01/21",26,false))
+            Player("Javier", "08/08/21", 15, false),
+            Player("Erika", "05/24/19", 20, false),
+            Player("Pedro", "07/10/20", 40, true),
+            Player("Miguel", "02/01/21", 26, false)
+        )*/
         viewManager = LinearLayoutManager(this)
-        viewAdapter = PlayersAdapter(playersArray)
+       // viewAdapter = PlayersAdapter(playersArray)
 
         recyclerView = findViewById<RecyclerView>(R.id.scores_rv).apply {
             setHasFixedSize(true)

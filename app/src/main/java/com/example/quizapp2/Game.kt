@@ -265,6 +265,7 @@ class Game : AppCompatActivity() {
             final_score.text = "Final Score: " + gameModel.totalScore.toString()
             if (gameModel.usedHints > 0) {
                 final_hints_used.text = "Hints used: " + gameModel.usedHints.toString()
+
             }
             if (gameModel.totalScore == 90) {
                 final_image.setImageResource(R.drawable.result1)
@@ -289,8 +290,8 @@ class Game : AppCompatActivity() {
         final_score.text = "¿Do you want to exit?"
         dialog.setView(dialogView)
         dialog.setCancelable(false)
-        dialog.setNegativeButton("NO", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
-        dialog.setPositiveButton("YES", { dialogInterface: DialogInterface, i: Int ->  super.onBackPressed()})
+        dialog.setNegativeButton("YES", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
+        dialog.setPositiveButton("NO", { dialogInterface: DialogInterface, i: Int ->  super.onBackPressed()})
         dialog.show()
     }
 

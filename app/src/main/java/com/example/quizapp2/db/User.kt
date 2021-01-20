@@ -14,3 +14,4 @@ data class User (
     @ColumnInfo(name = "username") var username: String,
     @ColumnInfo(name="selected") var selected: Int
 )
+
