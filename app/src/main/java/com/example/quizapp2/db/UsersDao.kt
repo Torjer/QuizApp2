@@ -28,8 +28,11 @@ interface UserDao {
     @Query("UPDATE users SET selected = :selected WHERE id = :id" )
     fun updateUser(id:Int, selected: Int)
 
-    @Query("INSERT INTO users(id, username, selected) VALUES(:id, :username, :selected)")
+    @Query("INSERT INTO users(id, username, selected, playing, questids, qcolors, answers, buttonsstatus) VALUES(:id, :username, :selected, 0, '', '', '', '')")
     fun insertUser(id: Int, username:String, selected:Int)
+
+    @Query("SELECT * FROM users WHERE selected = 1")
+    fun getCurrentUser() : User
 
     @Insert
     fun insertUser(user:User)
@@ -45,4 +48,5 @@ interface UserDao {
 
     @Delete
     fun deleteUser(user:List<User>)
+
 }

@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             .addCallback( object: RoomDatabase.Callback(){
                override fun onCreate(db: SupportSQLiteDatabase) {
                    super.onCreate(db)
-                   db.execSQL("INSERT INTO users(id, username, selected) VALUES(-1, 'No user', 0)")
+                   db.execSQL("INSERT INTO users(id, username, selected, playing, questids, qcolors, answers, buttonsstatus) VALUES(0, 'No user', 1, 0, '', '', '', '')")
                    //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 1','mm/dd/yy',00,false)")
                    //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 2','mm/dd/yy',00,true)")
                    //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 3','mm/dd/yy',00,false)")
