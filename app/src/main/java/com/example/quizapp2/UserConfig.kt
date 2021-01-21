@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_user_config.*
 
@@ -19,6 +16,8 @@ class UserConfig : AppCompatActivity() {
         const val RESULT_SETTINGS_CONFIG = RESULT_FIRST_USER
         const val EXTRA_SELECTED_USER = "com.example.quizapp2.selected_user"
         const val EXTRA_LIST_USERS = "com.example.quizapp2.list_user"
+        const val EXTRA_ADD_USERS = "com.example.quizapp2.add_user"
+        const val EXTRA_DEL_USERS = "com.example.quizapp2.del_user"
 
         fun createIntent(packageContext: Context, SelUser:String, Users : Array<String>): Intent {
             return Intent(packageContext, UserConfig::class.java).apply {
@@ -34,6 +33,8 @@ class UserConfig : AppCompatActivity() {
     private lateinit var CnBtn: Button
 
     private var Usuarios = mutableListOf<String>()
+    private var added = mutableListOf<String>()
+    private var deleted = mutableListOf<String>()
     private var SelectedItem:String = " "
     private var SelectedUser:String = " "
 
@@ -42,6 +43,9 @@ class UserConfig : AppCompatActivity() {
         setContentView(R.layout.activity_user_config)
 
         val LOfUsers = intent.getStringArrayExtra(EXTRA_LIST_USERS)
+        val selUser = intent.getStringExtra(EXTRA_SELECTED_USER).toString()
+
+        SelectedUser = selUser
 
         LOfUsers?.forEach {
             Usuarios.add(it)
@@ -65,6 +69,8 @@ class UserConfig : AppCompatActivity() {
                 setTitle("Add username")
                 setPositiveButton("OK"){dialog, which ->
                     Usuarios.add(editText.text.toString())
+                    added.add(editText.text.toString())
+                    SelectedUser = editText.text.toString()
                     myAdapter.notifyDataSetChanged()
                 }
                 setNegativeButton("Cancel"){dialog, which ->
@@ -84,8 +90,17 @@ class UserConfig : AppCompatActivity() {
                     SelectedUser = SelectedItem
                 }
                 setNegativeButton("Delete"){dialog, which ->
-                    Usuarios.removeAt(position)
-                    myAdapter.notifyDataSetChanged()
+                    if(Usuarios.size == 1) {
+                        Toast.makeText(this@UserConfig,"Cannot delete the last user", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        Usuarios.removeAt(position)
+                        deleted.add(SelectedItem)
+                        if(SelectedUser == SelectedItem){
+                            SelectedUser = Usuarios[0]
+                        }
+                        myAdapter.notifyDataSetChanged()
+                    }
                 }
                 show()
             }
@@ -94,7 +109,8 @@ class UserConfig : AppCompatActivity() {
         CnBtn.setOnClickListener { _ ->
             setResult(Options.RESULT_SETTINGS_CONFIG, Intent().apply {
                 putExtra(EXTRA_SELECTED_USER, SelectedUser)
-                putExtra(EXTRA_LIST_USERS, Usuarios.toTypedArray())
+                putExtra(EXTRA_ADD_USERS, added.toTypedArray())
+                putExtra(EXTRA_DEL_USERS, deleted.toTypedArray())
             })
             finish()
         }

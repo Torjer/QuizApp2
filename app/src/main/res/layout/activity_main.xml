@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/logoquizapp"/>
+        android:src="@drawable/logoquizapp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -33,37 +33,56 @@
             android:id="@+id/settings_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:textColor="#2f4950"
             android:background="#8ADDAE"
-            android:textSize="25dp"
             android:padding="10dp"
-            android:text="@string/options_text"/>
+            android:text="@string/options_text"
+            android:textColor="#2f4950"
+            android:textSize="25dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <Button
-        android:id="@+id/scores_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:textColor="#2f4950"
-        android:background="#8ADDAE"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:text="@string/scores_text"/>
-    <Button
-        android:id="@+id/user_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#8ADDAE"
-        android:padding="10dp"
-        android:text="@string/user_text"
-        android:textColor="#2f4950"
-        android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/scores_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="#8ADDAE"
+            android:padding="10dp"
+            android:text="@string/scores_text"
+            android:textColor="#2f4950"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/user_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#8ADDAE"
+            android:padding="10dp"
+            android:text="@string/user_text"
+            android:textColor="#2f4950"
+            android:textSize="25dp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/active_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="User:"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
 </LinearLayout>

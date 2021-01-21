@@ -10,8 +10,8 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE id = :id")
     fun getUsers(id : Int) : User
 
-    @Query("SELECT * FROM users WHERE username LIKE :text ORDER BY username")
-    fun getUsers(text : String) : List<User>
+    @Query("SELECT * FROM users WHERE username LIKE :text")
+    fun getUsers(text : String) : User
 
     @Query("SELECT * FROM users WHERE id >= :min AND id <= :max")
     fun getUsersByIdRange(min : Int, max : Int) : List<User>
@@ -25,6 +25,9 @@ interface UserDao {
     @Update
     fun updateUser(user:List<User>)
 
+    @Query("UPDATE users SET selected = :selected WHERE id = :id" )
+    fun updateUser(id:Int, selected: Int)
+
     @Query("INSERT INTO users(id, username, selected) VALUES(:id, :username, :selected)")
     fun insertUser(id: Int, username:String, selected:Int)
 
@@ -34,14 +37,12 @@ interface UserDao {
     @Insert
     fun insertUser(user:List<User>)
 
-
+    @Query("DELETE FROM users WHERE username LIKE :text")
+    fun deleteUser(text: String)
 
     @Delete
     fun deleteUser(user:User)
 
     @Delete
     fun deleteUser(user:List<User>)
-}
-interface PlayersDao {
-
 }

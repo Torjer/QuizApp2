@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.contentValuesOf
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.viewModels
 import com.example.quizapp2.Game.Companion.createIntent
 import com.example.quizapp2.Options.Companion.createIntent
@@ -12,8 +13,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.quizapp2.db.AppDatabase
+import com.example.quizapp2.db.GameConfig
+import com.example.quizapp2.db.Player
 import com.example.quizapp2.db.User
 import com.facebook.stetho.Stetho
+import kotlinx.android.synthetic.main.activity_main.*
 import java.security.KeyStore
 
 private const val OPTIONS_ACTIVITY_REQUEST_CODE = 0;
@@ -26,12 +30,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  playButton : Button
     private lateinit var setButton : Button
     private lateinit var scoreButton: Button
+    private lateinit var userText : TextView
 
 
     private lateinit var userButton : Button
-    private var SelUser: String = " "
+    private var SelUser: String = "Please add a new user to start the game"
     private var UserList = mutableListOf<String>()
-    //private lateinit var dao : usersDao()
+    private var added = mutableListOf<String>()
+    private var deleted = mutableListOf<String>()
+    private lateinit var db : AppDatabase
+    private lateinit var users : List<User>
+    private lateinit var gConfig : List<GameConfig>
     val gameModel: GameModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,38 +51,52 @@ class MainActivity : AppCompatActivity() {
         setButton = findViewById(R.id.settings_button)
         scoreButton = findViewById(R.id.scores_button)
         userButton = findViewById(R.id.user_button)
+        userText = findViewById(R.id.active_user)
+
 
         Stetho.initializeWithDefaults(this)
 
-           val db = Room.databaseBuilder(
-               applicationContext,
+        db = Room.databaseBuilder(
+            applicationContext,
             AppDatabase::class.java,
             "quizzapp.db"
-      ).allowMainThreadQueries()
-          .addCallback( object: RoomDatabase.Callback(){
+        ).allowMainThreadQueries()
+            .addCallback( object: RoomDatabase.Callback(){
                override fun onCreate(db: SupportSQLiteDatabase) {
                    super.onCreate(db)
-                   db.execSQL("INSERT INTO users(id, username, selected) VALUES(0, 'Default 1', 0)")
-                   db.execSQL("INSERT INTO users(id, username, selected) VALUES(1, 'Default 2', 0)")
-                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 1','mm/dd/yy',00,false)")
-                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 2','mm/dd/yy',00,true)")
-                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 3','mm/dd/yy',00,false)")
-                   db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 4','mm/dd/yy',00,false)")
+                   db.execSQL("INSERT INTO users(id, username, selected) VALUES(-1, 'No user', 0)")
+                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 1','mm/dd/yy',00,false)")
+                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 2','mm/dd/yy',00,true)")
+                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 3','mm/dd/yy',00,false)")
+                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 4','mm/dd/yy',00,false)")
                } }
             ).build()
-        var users = db.userDao().getUsers()
-        var scoresInfo = db.playerDao().getInfo()
+        users = db.userDao().getUsers()
+        users.forEach {
+            if(it.selected==1){
+                SelUser = it.username
+            }
+            else{
+                playButton.isEnabled = false
+                setButton.isEnabled = false
+            }
+        }
+        active_user.text = "Active user: " + SelUser
+
+        //db.gameConfigDao().insertOptions(0,"All",0,5,0)
 
         playButton.setOnClickListener { _ ->
+            val options = db.gameConfigDao().getSelectedOptions(db.userDao().getUsers(SelUser).id)
             startActivityForResult(
-                Game.createIntent(this,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
+                Game.createIntent(this,options.category,options.difficulty,options.eqn,options.hints),
                 GAME_ACTIVITY_REQUEST_CODE
             )
         }
 
         setButton.setOnClickListener { _ ->
+            val options = db.gameConfigDao().getSelectedOptions(db.userDao().getUsers(SelUser).id)
             startActivityForResult(
-                Options.createIntent(this,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
+                Options.createIntent(this,options.category,options.difficulty,options.eqn,options.hints),
                 OPTIONS_ACTIVITY_REQUEST_CODE
             )
         }
@@ -86,28 +109,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         userButton.setOnClickListener { _ ->
-            val tempusers = mutableListOf<String>()
+            users = db.userDao().getUsers()
+            var tempusers = mutableListOf<String>()
             users.forEach {
                 tempusers.add(it.username)
-                db.userDao().deleteUser(it)
             }
             startActivityForResult(
                 UserConfig.createIntent(this, SelUser, tempusers.toTypedArray()),
                 USER_ACTIVITY_REQUEST_CODE
             )
-            var i = 0
-            UserList.forEach {
-                if(it == SelUser){
-                    db.userDao().insertUser(i,it,1)
-                }
-                else {
-                    db.userDao().insertUser(i,it,0)
-                }
-                i++
-            }
-            users = db.userDao().getUsers()
-        }
+            //db.userDao().updateUser(users)
 
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -115,11 +128,17 @@ class MainActivity : AppCompatActivity() {
             OPTIONS_ACTIVITY_REQUEST_CODE -> {
                 when (resultCode) {
                     Options.RESULT_SETTINGS_CONFIG -> {
-                        gameModel.categories =
-                            data!!.getStringExtra(Options.EXTRA_CATEGORIES_TEXT).toString()
+                        gameModel.categories = data!!.getStringExtra(Options.EXTRA_CATEGORIES_TEXT).toString()
                         gameModel.difficulty = data.getIntExtra(Options.EXTRA_DIFFICULTY_LEVEL, 0)
                         gameModel.nquestions = data.getIntExtra(Options.EXTRA_QUESTION_NUMBERS, 5)
                         gameModel.ghints = data.getIntExtra(Options.EXTRA_HINT_OPTION, 0)
+
+                        gConfig = db.gameConfigDao().getOptions()
+                        gConfig.forEach {
+                            if(db.userDao().getUsers(SelUser).id == it.id){
+                                db.gameConfigDao().updateOptions(it.id ,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints)
+                            }
+                        }
                     }
                 }
             }
@@ -128,7 +147,31 @@ class MainActivity : AppCompatActivity() {
                 when(resultCode){
                     UserConfig.RESULT_SETTINGS_CONFIG->{
                         SelUser = data!!.getStringExtra(UserConfig.EXTRA_SELECTED_USER).toString()
-                        UserList = data.getStringArrayExtra(UserConfig.EXTRA_LIST_USERS)!!.toMutableList()
+                        added = data.getStringArrayExtra(UserConfig.EXTRA_ADD_USERS)!!.toMutableList()
+                        deleted = data.getStringArrayExtra(UserConfig.EXTRA_DEL_USERS)!!.toMutableList()
+
+                        deleted.forEach{
+                            if(db.userDao().getUsers(it).id >= 0) {
+                                db.gameConfigDao().deleteOptions(db.userDao().getUsers(it).id)
+                            }
+                            db.userDao().deleteUser(it)
+                        }
+                        var id = 0
+                        users.forEach {
+                            id = it.id
+                            if (SelUser == it.username){
+                                db.userDao().updateUser(it.id, 1)
+                            }
+                            else{db.userDao().updateUser(it.id, 0)}
+                        }
+                        added.forEach {
+                            db.userDao().insertUser(id+1,it,0)
+                            db.gameConfigDao().insertOptions(id+1,"All",0,5,0)
+                            id++
+                        }
+                        active_user.text = "Active user: " + SelUser
+                        playButton.isEnabled = true
+                        setButton.isEnabled = true
                     }
                 }
             }
