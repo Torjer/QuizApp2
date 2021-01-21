@@ -13,5 +13,5 @@ data class Player
     @PrimaryKey @ColumnInfo(name = "username") val name:String,
     @ColumnInfo(name = "date") val gamedate:String,
     @ColumnInfo(name = "score") val score: Int,
-    @ColumnInfo(name = "hints") val hints: Boolean
+    @ColumnInfo(name = "hints") var hints: Boolean
 )

@@ -2,13 +2,10 @@ package com.example.quizapp2
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.contentValuesOf
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
-import com.example.quizapp2.Game.Companion.createIntent
-import com.example.quizapp2.Options.Companion.createIntent
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -19,6 +16,8 @@ import com.example.quizapp2.db.User
 import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.KeyStore
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 private const val OPTIONS_ACTIVITY_REQUEST_CODE = 0;
 private const val GAME_ACTIVITY_REQUEST_CODE = 1;
@@ -41,7 +40,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db : AppDatabase
     private lateinit var users : List<User>
     private lateinit var gConfig : List<GameConfig>
+    private var dateInfo = mutableListOf<String>("01/02/98","08/15/97","12/20/2018")
+    private var nameInfo = mutableListOf<String>("Nina","Max","Oli")
+    private var scoreInfo = mutableListOf<String>("98","74","60")
+    private var hintsInfo = mutableListOf<String>("true","false","true")
+    //private lateinit var dao : usersDao()
     val gameModel: GameModel by viewModels()
+
+    fun displayCurrentDate(): String {
+        val now = LocalDate.now()
+        var formatter =  DateTimeFormatter .ofPattern("MM-dd-yyyy")
+
+        return  formatter.format(now).toString()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +114,7 @@ class MainActivity : AppCompatActivity() {
 
         scoreButton.setOnClickListener { _->
             startActivityForResult(
-            Scores.createIntent(this, gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints),
+            Scores.createIntent(this, nameInfo.toTypedArray(), dateInfo.toTypedArray(), scoreInfo.toTypedArray(), hintsInfo.toTypedArray()),
                 SCORES_ACTIVITY_REQUEST_CODE
             )
         }
@@ -175,7 +186,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+
             else->super.onActivityResult(requestCode, resultCode, data)
+
         }
     }
 }

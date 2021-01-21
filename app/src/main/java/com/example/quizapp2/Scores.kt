@@ -15,17 +15,21 @@ class Scores : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     companion object{
-        const val EXTRA_CATEGORIES_TEXT = "com.example.quizapp2.categories_text"
-        const val EXTRA_DIFFICULTY_LEVEL = "com.example.quizapp2.difficulty_level"
-        const val EXTRA_QUESTION_NUMBERS = "com.example.quizapp2.question_number"
-        const val EXTRA_HINT_OPTION = "com.example.quizapp2.hint_option"
+        const val EXTRA_LNAME_INFO = "com.example.quizapp2.lname_info"
+        const val EXTRA_DATE_INFO = "com.example.quizapp2.date_info"
+        const val EXTRA_SCORE_INFO = "com.example.quizapp2.score_info"
+        const val EXTRA_HINTS_INFO = "com.example.quizapp2.hints_info"
 
-        fun createIntent(packageContext: Context, categories: String, difficulty: Int, qnumbers: Int, ghint: Int): Intent {
+        fun createIntent(
+            packageContext: Context, nameInfo: Array<String>, dateInfo: Array<String>,
+            scoreInfo: Array<String>,
+            hintsInfo: Array<String>
+        ): Intent {
             return Intent(packageContext, Scores::class.java).apply{
-                putExtra(EXTRA_CATEGORIES_TEXT, categories)
-                putExtra(EXTRA_DIFFICULTY_LEVEL, difficulty)
-                putExtra(EXTRA_QUESTION_NUMBERS,qnumbers)
-                putExtra(EXTRA_HINT_OPTION,ghint)
+                putExtra(EXTRA_LNAME_INFO, nameInfo)
+                putExtra(EXTRA_DATE_INFO, dateInfo)
+                putExtra(EXTRA_SCORE_INFO,scoreInfo)
+                putExtra(EXTRA_HINTS_INFO,hintsInfo)
             }
         }
     }
@@ -34,22 +38,35 @@ class Scores : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scores)
 
-        val playersArray = arrayOf(
-            Player("Pepe", "10/08/20", 10, true),
-            Player("Javier", "08/08/21", 15, false),
-            Player("Erika", "05/24/19", 20, false),
-            Player("Pedro", "07/10/20", 40, true),
-            Player("Miguel", "02/01/21", 26, false)
-        )
+        var playersList = mutableListOf<Player>()
+
+        val userinfoList = intent.getStringArrayExtra(EXTRA_LNAME_INFO)
+        val dateinfoList = intent.getStringArrayExtra(EXTRA_DATE_INFO)
+        val scoreinfoList = intent.getStringArrayExtra(EXTRA_SCORE_INFO)
+        val hintsinfoList = intent.getStringArrayExtra(EXTRA_HINTS_INFO)
+        var i = 0
+        userinfoList?.forEach {
+            val player = Player(userinfoList[i], dateinfoList!![i], scoreinfoList!![i].toInt(),hintsinfoList!![i].toBoolean())
+            playersList.add(player)
+            i++
+        }
+
+        //Es para la prueba
+        //var playersArray = arrayOf(
+        //    Player("Pepe","12/06/20",98,true),
+        //    Player("Fer","15099",80,false),
+        //    Player("Caro","12/06/20",34,true)
+        //)
+        //Fin de prueba
+
         viewManager = LinearLayoutManager(this)
-        viewAdapter = PlayersAdapter(playersArray)
+        viewAdapter = PlayersAdapter(playersList)
 
         recyclerView = findViewById<RecyclerView>(R.id.scores_rv).apply {
             setHasFixedSize(true)
 
             layoutManager = LinearLayoutManager(this@Scores)
 
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
 
         }

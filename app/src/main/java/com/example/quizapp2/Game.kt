@@ -15,6 +15,7 @@ import android.graphics.drawable.ColorDrawable
 import kotlinx.android.synthetic.main.score_dialog.*
 import androidx.activity.viewModels
 import com.example.quizapp2.db.Player
+import com.example.quizapp2.db.AppDatabase
 
 class Game : AppCompatActivity() {
 
@@ -46,6 +47,7 @@ class Game : AppCompatActivity() {
     lateinit var tvHint : TextView
 
     val gameModel: GameModel by viewModels()
+    var player: Player = TODO()
 
     private fun isAnswered(quest: Question){
         if(quest.qcolor == "#008000" || quest.qcolor == "#e30118"){
@@ -330,8 +332,11 @@ class Game : AppCompatActivity() {
             var final_image = dialogView.findViewById<ImageView>(R.id.img_score)
             var final_hints_used = dialogView.findViewById<TextView>(R.id.tv_hints_used)
             final_score.text = "Final Score: " + gameModel.totalScore.toString()
+
+            player.hints = false
             if (gameModel.usedHints > 0) {
                 final_hints_used.text = "Hints used: " + gameModel.usedHints.toString()
+                player.hints = true
             }
             if (gameModel.totalScore == 90) {
                 final_image.setImageResource(R.drawable.result1)
@@ -342,6 +347,7 @@ class Game : AppCompatActivity() {
             } else {
                 final_image.setImageResource(R.drawable.result4)
             }
+
             gameModel.finished = true
             dialog.setView(dialogView)
             dialog.setCancelable(false)
