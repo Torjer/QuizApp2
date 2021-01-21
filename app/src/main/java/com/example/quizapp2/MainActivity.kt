@@ -37,13 +37,13 @@ class MainActivity : AppCompatActivity() {
     private var UserList = mutableListOf<String>()
     private var added = mutableListOf<String>()
     private var deleted = mutableListOf<String>()
-    private lateinit var db : AppDatabase
-    private lateinit var users : List<User>
-    private lateinit var gConfig : List<GameConfig>
     private var dateInfo = mutableListOf<String>("01/02/98","08/15/97","12/20/2018")
     private var nameInfo = mutableListOf<String>("Nina","Max","Oli")
     private var scoreInfo = mutableListOf<String>("98","74","60")
     private var hintsInfo = mutableListOf<String>("true","false","true")
+    private lateinit var db : AppDatabase
+    private lateinit var users : List<User>
+    private lateinit var gConfig : List<GameConfig>
     //private lateinit var dao : usersDao()
     val gameModel: GameModel by viewModels()
 
