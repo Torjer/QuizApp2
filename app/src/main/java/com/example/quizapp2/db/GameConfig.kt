@@ -13,5 +13,6 @@ data class GameConfig (
     @ColumnInfo(name = "category") var category: String,
     @ColumnInfo(name="difficulty") var difficulty: Int,
     @ColumnInfo(name = "eqn") var eqn: Int,
-    @ColumnInfo(name = "hints") var hints : Int
+    @ColumnInfo(name = "hints") var hints : Int,
+    @ColumnInfo(name = "active") var active : Int
 )

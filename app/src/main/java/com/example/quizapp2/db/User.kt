@@ -12,11 +12,6 @@ import androidx.room.PrimaryKey
 data class User (
     @PrimaryKey @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "username") var username: String,
-    @ColumnInfo(name="selected") var selected: Int,
-    @ColumnInfo(name="playing") var playing: Int,
-    @ColumnInfo(name="questids") var questids: String,
-    @ColumnInfo(name="qcolors") var qcolors: String,
-    @ColumnInfo(name="answers") var answers: String,
-    @ColumnInfo(name="buttonsstatus") var buttonsstatus: String
+    @ColumnInfo(name="selected") var selected: Int
 )
 

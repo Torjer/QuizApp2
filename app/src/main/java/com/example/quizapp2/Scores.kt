@@ -161,6 +161,7 @@ class Scores : AppCompatActivity() {
             playersList.add(player)
             i++
         }
+        val orderById = playersList.sortedBy {it.score}
 
 
 
@@ -173,7 +174,9 @@ class Scores : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@Scores)
 
             adapter = viewAdapter
-
         }
+
+
+
     }
 }

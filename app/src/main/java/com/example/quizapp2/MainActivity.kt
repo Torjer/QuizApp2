@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private var UserList = mutableListOf<String>()
     private var added = mutableListOf<String>()
     private var deleted = mutableListOf<String>()
+
     private lateinit var db : AppDatabase
     private lateinit var users : List<User>
     private lateinit var scoresInfo : List<Player>
@@ -79,14 +80,14 @@ class MainActivity : AppCompatActivity() {
                    //db.execSQL("INSERT INTO scoresInfo(userid,username, date, score, hints) VALUES (4,'Default 4','mm/dd/yy',00,false)")
                } }
             ).build()
-     db.playerDao().insertInfo(1,"Default 1","2021/08/01",2,false)
-     db.playerDao().insertInfo(2,"Default 1","2021/09/01",1,true)
-     db.playerDao().insertInfo(3,"Default 1","2021/01/01",5,true)
-     db.playerDao().insertInfo(4,"Default 1","2020/08/01",4,false)
-     db.playerDao().insertInfo(5,"Default 2","2021/05/17",2,true)
-     db.playerDao().insertInfo(6,"Default 2","2021/05/30",560,true)
-     db.playerDao().insertInfo(7,"Default 3","2021/05/23",40,false)
-     db.playerDao().insertInfo(8,"Default 4","2020/05/12",60,false)
+     //db.playerDao().insertInfo(1,"Default 1","2021/08/01",2,false)
+     //db.playerDao().insertInfo(2,"Default 1","2021/09/01",1,true)
+     //db.playerDao().insertInfo(3,"Default 1","2021/01/01",5,true)
+     //db.playerDao().insertInfo(4,"Default 1","2020/08/01",4,false)
+     //db.playerDao().insertInfo(5,"Default 2","2021/05/17",2,true)
+     //db.playerDao().insertInfo(6,"Default 2","2021/05/30",560,true)
+     //db.playerDao().insertInfo(7,"Default 3","2021/05/23",40,false)
+     //db.playerDao().insertInfo(8,"Default 4","2020/05/12",60,false)
         users = db.userDao().getUsers()
         scoresInfo = db.playerDao().getInfo()
         users.forEach {
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         playButton.setOnClickListener { _ ->
             val options = db.gameConfigDao().getSelectedOptions(db.userDao().getUsers(SelUser).id)
             startActivityForResult(
-                Game.createIntent(this,options.category,options.difficulty,options.eqn,options.hints),
+                Game.createIntent(this,options.category,options.difficulty,options.eqn,options.hints, db.userDao().getUsers(SelUser).id),
                 GAME_ACTIVITY_REQUEST_CODE
             )
         }
@@ -166,7 +167,7 @@ class MainActivity : AppCompatActivity() {
                         gConfig = db.gameConfigDao().getOptions()
                         gConfig.forEach {
                             if(db.userDao().getUsers(SelUser).id == it.id){
-                                db.gameConfigDao().updateOptions(it.id ,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints)
+                                db.gameConfigDao().updateOptions(it.id ,gameModel.categories,gameModel.difficulty,gameModel.nquestions,gameModel.ghints, it.active)
                             }
                         }
                     }
@@ -189,15 +190,17 @@ class MainActivity : AppCompatActivity() {
                         var id = 0
                         users.forEach {
                             id = it.id
-                            if (SelUser == it.username){
-                                db.userDao().updateUser(it.id, 1)
-                            }
-                            else{db.userDao().updateUser(it.id, 0)}
                         }
                         added.forEach {
-                            db.userDao().insertUser(id+1,it,0)
-                            db.gameConfigDao().insertOptions(id+1,"All",0,5,0)
+                            db.userDao().insertUser(id+1,it,1)
+                            db.gameConfigDao().insertOptions(id+1,"All",0,5,0,0)
                             id++
+                        }
+                        users.forEach {
+                            if (SelUser == it.username){
+                                db.userDao().updateUser(it.id,1)
+                            }
+                            else{db.userDao().updateUser(it.id,0)}
                         }
                         active_user.text = "Active user: " + SelUser
                         playButton.isEnabled = true

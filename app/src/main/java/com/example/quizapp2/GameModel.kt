@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
+import com.example.quizapp2.db.AppDatabase
 
 
 class GameModel : ViewModel() {
@@ -18,43 +19,41 @@ class GameModel : ViewModel() {
     var difficulty : Int = 0
     var nquestions : Int = 5
     var ghints : Int = 0
-
-
     var diffID: Int = 0
     var optionCategories : String = "All"
     var enableSpinn : Boolean = false
 
     val question = listOf<Question>(
-        Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Art",R.string.question_text_A3, R.string.Canswer_text_A3,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Art",R.string.question_text_A4, R.string.Canswer_text_A4,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Art",R.string.question_text_A5, R.string.Canswer_text_A5,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Geography",R.string.question_text_G1, R.string.Canswer_text_G1,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Geography",R.string.question_text_G2, R.string.Canswer_text_G2,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Geography",R.string.question_text_G3, R.string.Canswer_text_G3,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Geography",R.string.question_text_G4, R.string.Canswer_text_G4,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Geography",R.string.question_text_G5, R.string.Canswer_text_G5,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("History",R.string.question_text_H1, R.string.Canswer_text_H1,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("History",R.string.question_text_H2, R.string.Canswer_text_H2,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("History",R.string.question_text_H3, R.string.Canswer_text_H3,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("History",R.string.question_text_H4, R.string.Canswer_text_H4,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("History",R.string.question_text_H5, R.string.Canswer_text_H5,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Movies",R.string.question_text_M1, R.string.Canswer_text_M1,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Movies",R.string.question_text_M2, R.string.Canswer_text_M2,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Movies",R.string.question_text_M3, R.string.Canswer_text_M3,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Movies",R.string.question_text_M4, R.string.Canswer_text_M4,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Movies",R.string.question_text_M5, R.string.Canswer_text_M5,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Literature",R.string.question_text_L1, R.string.Canswer_text_L1,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Literature",R.string.question_text_L2, R.string.Canswer_text_L2,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Literature",R.string.question_text_L3, R.string.Canswer_text_L3,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Literature",R.string.question_text_L4, R.string.Canswer_text_L4,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Literature",R.string.question_text_L5, R.string.Canswer_text_L5,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Science",R.string.question_text_S1, R.string.Canswer_text_S1,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Science",R.string.question_text_S2, R.string.Canswer_text_S2,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Science",R.string.question_text_S3, R.string.Canswer_text_S3,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,"#000000", listOf<Int>(0), listOf<Int>()),
-        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,"#000000", listOf<Int>(0), listOf<Int>())
+        Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Art",R.string.question_text_A3, R.string.Canswer_text_A3,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Art",R.string.question_text_A4, R.string.Canswer_text_A4,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Art",R.string.question_text_A5, R.string.Canswer_text_A5,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Geography",R.string.question_text_G1, R.string.Canswer_text_G1,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Geography",R.string.question_text_G2, R.string.Canswer_text_G2,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Geography",R.string.question_text_G3, R.string.Canswer_text_G3,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Geography",R.string.question_text_G4, R.string.Canswer_text_G4,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Geography",R.string.question_text_G5, R.string.Canswer_text_G5,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("History",R.string.question_text_H1, R.string.Canswer_text_H1,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("History",R.string.question_text_H2, R.string.Canswer_text_H2,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("History",R.string.question_text_H3, R.string.Canswer_text_H3,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("History",R.string.question_text_H4, R.string.Canswer_text_H4,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("History",R.string.question_text_H5, R.string.Canswer_text_H5,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Movies",R.string.question_text_M1, R.string.Canswer_text_M1,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Movies",R.string.question_text_M2, R.string.Canswer_text_M2,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Movies",R.string.question_text_M3, R.string.Canswer_text_M3,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Movies",R.string.question_text_M4, R.string.Canswer_text_M4,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Movies",R.string.question_text_M5, R.string.Canswer_text_M5,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Literature",R.string.question_text_L1, R.string.Canswer_text_L1,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Literature",R.string.question_text_L2, R.string.Canswer_text_L2,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Literature",R.string.question_text_L3, R.string.Canswer_text_L3,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Literature",R.string.question_text_L4, R.string.Canswer_text_L4,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Literature",R.string.question_text_L5, R.string.Canswer_text_L5,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Science",R.string.question_text_S1, R.string.Canswer_text_S1,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Science",R.string.question_text_S2, R.string.Canswer_text_S2,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Science",R.string.question_text_S3, R.string.Canswer_text_S3,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Science",R.string.question_text_S4, R.string.Canswer_text_S4,"#000000", listOf<Int>(0), listOf<Int>(0)),
+        Question("Science",R.string.question_text_S5, R.string.Canswer_text_S5,"#000000", listOf<Int>(0), listOf<Int>(0))
     )
 
     var ans = listOf<Answer>(

@@ -19,16 +19,19 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE id IN (:idArray)")
     fun getUsersByIdArray(idArray : Array<Int>) : List<User>
 
+    @Query("SELECT * FROM users ORDER BY id DESC LIMIT 1")
+    fun getLastUser() : User
+
     @Update
     fun updateUser(user:User)
 
     @Update
     fun updateUser(user:List<User>)
 
-    @Query("UPDATE users SET selected = :selected WHERE id = :id" )
-    fun updateUser(id:Int, selected: Int)
+    @Query("UPDATE users SET selected = :selected WHERE id = :isSelected" )
+    fun updateUser(isSelected:Int, selected: Int)
 
-    @Query("INSERT INTO users(id, username, selected, playing, questids, qcolors, answers, buttonsstatus) VALUES(:id, :username, :selected, 0, '', '', '', '')")
+    @Query("INSERT INTO users(id, username, selected) VALUES(:id, :username, :selected)")
     fun insertUser(id: Int, username:String, selected:Int)
 
     @Query("SELECT * FROM users WHERE selected = 1")
