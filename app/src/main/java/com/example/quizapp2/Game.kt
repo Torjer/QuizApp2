@@ -14,6 +14,10 @@ import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import kotlinx.android.synthetic.main.score_dialog.*
 import androidx.activity.viewModels
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.quizapp2.db.AppDatabase
 
 
 class Game : AppCompatActivity() {
@@ -44,6 +48,8 @@ class Game : AppCompatActivity() {
     lateinit var prevButton: Button
     lateinit var tvQuestionNumber : TextView
     lateinit var tvHint : TextView
+
+    private lateinit var db : AppDatabase
 
     val gameModel: GameModel by viewModels()
 
@@ -110,6 +116,23 @@ class Game : AppCompatActivity() {
         setContentView(R.layout.activity_game)
 
         gameModel.selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
+
+        db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "quizzapp.db"
+        ).allowMainThreadQueries()
+            .addCallback( object: RoomDatabase.Callback(){
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+                    db.execSQL("INSERT INTO users(id, username, selected, playing, questids, qcolors, answers, buttonsstatus) VALUES(0, 'No user', 1, 0, '', '', '', '')")
+                    //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 1','mm/dd/yy',00,false)")
+                    //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 2','mm/dd/yy',00,true)")
+                    //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 3','mm/dd/yy',00,false)")
+                    //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 4','mm/dd/yy',00,false)")
+                } }
+            ).build()
+
 
         AnsButton1 = findViewById(R.id.opt1_button)
         AnsButton2 = findViewById(R.id.opt2_button)
@@ -290,7 +313,21 @@ class Game : AppCompatActivity() {
         dialog.setView(dialogView)
         dialog.setCancelable(false)
         dialog.setNegativeButton("NO", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
-        dialog.setPositiveButton("YES", { dialogInterface: DialogInterface, i: Int ->  super.onBackPressed()})
+        dialog.setPositiveButton("YES", { dialogInterface: DialogInterface, i: Int ->
+            var currentUser = db.userDao().getCurrentUser()
+            currentUser.questids = ""
+            currentUser.qcolors = ""
+            currentUser.answers = ""
+            currentUser.buttonsstatus = ""
+            gameModel.inGameQuestions.forEach{
+                currentUser.questids += it.resID.toString() + " "
+                currentUser.qcolors += it.qcolor + " "
+                currentUser.answers += it.wanswers.joinToString(",") + " "
+                currentUser.buttonsstatus += it.butanswered.joinToString(",") + " "
+                currentUser.playing = 1
+                db.userDao().updateUser(currentUser)
+            }
+            super.onBackPressed()})
         dialog.show()
     }
 
