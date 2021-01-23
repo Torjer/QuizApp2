@@ -7,6 +7,9 @@
     <string name="play_text">Play</string>
     <string name="setting_text">Settings</string>
     <string name="save_text">Save</string>
+    <string name="moreInfo_text">More Info</string>
+    <string name="order_text">Order by:</string>
+    <string name="userinfo_text">Select user:</string>
     <string name="hname_text">Name</string>
     <string name="hdate_text">Date</string>
     <string name="hscore_text">Score</string>

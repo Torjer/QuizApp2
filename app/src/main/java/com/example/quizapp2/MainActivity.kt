@@ -37,19 +37,16 @@ class MainActivity : AppCompatActivity() {
     private var UserList = mutableListOf<String>()
     private var added = mutableListOf<String>()
     private var deleted = mutableListOf<String>()
-    private var dateInfo = mutableListOf<String>("01/02/98","08/15/97","12/20/2018")
-    private var nameInfo = mutableListOf<String>("Nina","Max","Oli")
-    private var scoreInfo = mutableListOf<String>("98","74","60")
-    private var hintsInfo = mutableListOf<String>("true","false","true")
     private lateinit var db : AppDatabase
     private lateinit var users : List<User>
+    private lateinit var scoresInfo : List<Player>
     private lateinit var gConfig : List<GameConfig>
     //private lateinit var dao : usersDao()
     val gameModel: GameModel by viewModels()
 
     fun displayCurrentDate(): String {
         val now = LocalDate.now()
-        var formatter =  DateTimeFormatter .ofPattern("MM-dd-yyyy")
+        var formatter =  DateTimeFormatter .ofPattern("yyyy-MM-dd")
 
         return  formatter.format(now).toString()
     }
@@ -75,14 +72,23 @@ class MainActivity : AppCompatActivity() {
             .addCallback( object: RoomDatabase.Callback(){
                override fun onCreate(db: SupportSQLiteDatabase) {
                    super.onCreate(db)
-                   db.execSQL("INSERT INTO users(id, username, selected) VALUES(-1, 'No user', 0)")
-                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 1','mm/dd/yy',00,false)")
-                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 2','mm/dd/yy',00,true)")
-                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 3','mm/dd/yy',00,false)")
-                   //db.execSQL("INSERT INTO scoresInfo(username, date, score, hints) VALUES ('Default 4','mm/dd/yy',00,false)")
+                   //db.execSQL("INSERT INTO users(id, username, selected) VALUES(-1, 'No user', 0)")
+                   //db.execSQL("INSERT INTO scoresInfo(userid,username, date, score, hints) VALUES (1,'Default 1','mm/dd/yy',90,false)")
+                   //db.execSQL("INSERT INTO scoresInfo(userid,username, date, score, hints) VALUES (2,'Default 2','mm/dd/yy',70,true)")
+                   //db.execSQL("INSERT INTO scoresInfo(userid,username, date, score, hints) VALUES (3,'Default 3','mm/dd/yy',100,false)")
+                   //db.execSQL("INSERT INTO scoresInfo(userid,username, date, score, hints) VALUES (4,'Default 4','mm/dd/yy',00,false)")
                } }
             ).build()
+      //db.playerDao().insertInfo(1,"Default 1","2021/08/01",2,false)
+      //db.playerDao().insertInfo(2,"Default 1","2021/09/01",1,true)
+      //db.playerDao().insertInfo(3,"Default 1","2021/01/01",5,true)
+      //db.playerDao().insertInfo(4,"Default 1","2020/08/01",4,false)
+      //db.playerDao().insertInfo(5,"Default 2","2021/05/17",2,true)
+      //db.playerDao().insertInfo(6,"Default 2","2021/05/30",560,true)
+      //db.playerDao().insertInfo(7,"Default 3","2021/05/23",40,false)
+      //db.playerDao().insertInfo(8,"Default 4","2020/05/12",60,false)
         users = db.userDao().getUsers()
+        scoresInfo = db.playerDao().getInfo()
         users.forEach {
             if(it.selected==1){
                 SelUser = it.username
@@ -112,9 +118,22 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        scoreButton.setOnClickListener { _->
+        scoreButton.setOnClickListener { _ ->
+            scoresInfo = db.playerDao().getInfo()
+            var tempId = mutableListOf<String>()
+            var tempName = mutableListOf<String>()
+            var tempDate = mutableListOf<String>()
+            var tempScore = mutableListOf<String>()
+            var tempHints = mutableListOf<String>()
+            scoresInfo.forEach{
+                tempId.add(it.userid.toString())
+                tempName.add(it.name)
+                tempDate.add(it.gamedate)
+                tempScore.add(it.score.toString())
+                tempHints.add(it.hints.toString())
+            }
             startActivityForResult(
-            Scores.createIntent(this, nameInfo.toTypedArray(), dateInfo.toTypedArray(), scoreInfo.toTypedArray(), hintsInfo.toTypedArray()),
+                Scores.createIntent(this, tempId.toTypedArray(), tempName.toTypedArray(), tempDate.toTypedArray(), tempScore.toTypedArray(), tempHints.toTypedArray()),
                 SCORES_ACTIVITY_REQUEST_CODE
             )
         }
