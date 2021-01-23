@@ -24,7 +24,7 @@ class GameModel : ViewModel() {
     var optionCategories : String = "All"
     var enableSpinn : Boolean = false
 
-    private val question = listOf<Question>(
+    val question = listOf<Question>(
         Question("Art",R.string.question_text_A1, R.string.Canswer_text_A1,"#000000", listOf<Int>(0), listOf<Int>()),
         Question("Art",R.string.question_text_A2, R.string.Canswer_text_A2,"#000000", listOf<Int>(0), listOf<Int>()),
         Question("Art",R.string.question_text_A3, R.string.Canswer_text_A3,"#000000", listOf<Int>(0), listOf<Int>()),
@@ -152,6 +152,9 @@ class GameModel : ViewModel() {
 
 
     var inGameQuestions = mutableListOf<Question>()
+
+    var newInGameQuestions = mutableListOf<Question>()
+
     var selCategories = listOf<String>()
     var HintsMax = 0
     var usedHints = 0
@@ -160,8 +163,14 @@ class GameModel : ViewModel() {
     var totalScore = 0
     var Aquestions = 0
     var currentQuestionIndex = 0
+
+
     val currentQuestion : Question
         get() = inGameQuestions[currentQuestionIndex]
+
+    val newCurrentQuestion : Question
+        get() = newInGameQuestions[currentQuestionIndex]
+
     var h1 = false
     var h2 = false
     var h3 = false

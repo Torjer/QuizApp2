@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
     private var UserList = mutableListOf<String>()
     private var added = mutableListOf<String>()
     private var deleted = mutableListOf<String>()
-    private lateinit var borrarlinea
     private lateinit var db : AppDatabase
     private lateinit var users : List<User>
     private lateinit var scoresInfo : List<Player>

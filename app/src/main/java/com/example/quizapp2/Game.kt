@@ -147,6 +147,7 @@ class Game : AppCompatActivity() {
 
         var getHints = intent.getIntExtra(EXTRA_HINT_OPTION,0)
         val difSet = intent.getIntExtra(EXTRA_DIFFICULTY_LEVEL,0)
+        var currentUser = db.userDao().getCurrentUser()
 
         gameModel.HintsMax = getHints
         gameModel.remainingHints = gameModel.HintsMax-gameModel.usedHints
@@ -188,7 +189,10 @@ class Game : AppCompatActivity() {
             gameModel.shuffleQuestions()
         }
 
+
+
         tvQuestionNumber.text = (gameModel.currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
+
 
         questionText.setText(gameModel.currentQuestion.resID)
         questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
@@ -196,6 +200,39 @@ class Game : AppCompatActivity() {
         AnsButton2.setText(gameModel.currentQuestion.wanswers[1])
         AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
         AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
+
+
+        if(currentUser.playing == 1) {
+
+            var idList = currentUser.questids.split(" ")
+            idList.forEach { idElem->
+                gameModel.question.forEach {
+                    if (idElem == it.resID.toString()) {
+                        gameModel.newInGameQuestions.add(it)
+                    }
+                }
+            }
+            var tempQColors = currentUser.qcolors.split(" ").map { it.trim() }
+            var tempAnswers = currentUser.answers.split(" ").map {it.trim()}
+            for (i in 0 until gameModel.newInGameQuestions.size) {
+                gameModel.newInGameQuestions[i].qcolor = tempQColors[i]
+                var tempList = mutableListOf<Int>()
+                tempList.add(tempAnswers[i].split(",")[0].toInt())
+                tempList.add(tempAnswers[i].split(",")[1].toInt())
+                tempList.add(tempAnswers[i].split(",")[2].toInt())
+                tempList.add(tempAnswers[i].split(",")[3].toInt())
+                gameModel.newInGameQuestions[i].wanswers = tempList
+            }
+
+
+            questionText.setText(gameModel.newCurrentQuestion.resID)
+            questionText.setTextColor(Color.parseColor(gameModel.newCurrentQuestion.qcolor))
+            AnsButton1.setText(gameModel.newCurrentQuestion.wanswers[0])
+            AnsButton2.setText(gameModel.newCurrentQuestion.wanswers[1])
+            AnsButton3.setText(gameModel.newCurrentQuestion.wanswers[2])
+            AnsButton4.setText(gameModel.newCurrentQuestion.wanswers[3])
+        }
+
 
         if(gameModel.answered) {
             isAnswered(gameModel.currentQuestion)
@@ -258,25 +295,46 @@ class Game : AppCompatActivity() {
         nextButton.setOnClickListener{_->
             gameModel.currentQuestionIndex = (gameModel.currentQuestionIndex + 1) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
             tvQuestionNumber.text = (gameModel.currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
-            questionText.setText(gameModel.currentQuestion.resID)
-            questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
-            isAnswered(gameModel.currentQuestion)
-            AnsButton1.setText(gameModel.currentQuestion.wanswers[0])
-            AnsButton2.setText(gameModel.currentQuestion.wanswers[1])
-            AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
-            AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
+            if (currentUser.playing == 1) {
+                questionText.setText(gameModel.newCurrentQuestion.resID)
+                questionText.setTextColor(Color.parseColor(gameModel.newCurrentQuestion.qcolor))
+                isAnswered(gameModel.newCurrentQuestion)
+                AnsButton1.setText(gameModel.newCurrentQuestion.wanswers[0])
+                AnsButton2.setText(gameModel.newCurrentQuestion.wanswers[1])
+                AnsButton3.setText(gameModel.newCurrentQuestion.wanswers[2])
+                AnsButton4.setText(gameModel.newCurrentQuestion.wanswers[3])
+            } else {
+                questionText.setText(gameModel.currentQuestion.resID)
+                questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
+                isAnswered(gameModel.currentQuestion)
+                AnsButton1.setText(gameModel.currentQuestion.wanswers[0])
+                AnsButton2.setText(gameModel.currentQuestion.wanswers[1])
+                AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
+                AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
+            }
+
         }
 
         prevButton.setOnClickListener{_->
             gameModel.currentQuestionIndex = (intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5) + gameModel.currentQuestionIndex -1 ) % intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
-            questionText.setText(gameModel.currentQuestion.resID)
             tvQuestionNumber.text = (gameModel.currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
-            questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
-            isAnswered(gameModel.currentQuestion)
-            AnsButton1.setText(gameModel.currentQuestion.wanswers[0])
-            AnsButton2.setText(gameModel.currentQuestion.wanswers[1])
-            AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
-            AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
+            if (currentUser.playing == 1) {
+                questionText.setText(gameModel.newCurrentQuestion.resID)
+                questionText.setTextColor(Color.parseColor(gameModel.newCurrentQuestion.qcolor))
+                isAnswered(gameModel.newCurrentQuestion)
+                AnsButton1.setText(gameModel.newCurrentQuestion.wanswers[0])
+                AnsButton2.setText(gameModel.newCurrentQuestion.wanswers[1])
+                AnsButton3.setText(gameModel.newCurrentQuestion.wanswers[2])
+                AnsButton4.setText(gameModel.newCurrentQuestion.wanswers[3])
+            } else {
+                questionText.setText(gameModel.currentQuestion.resID)
+                questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
+                isAnswered(gameModel.currentQuestion)
+                AnsButton1.setText(gameModel.currentQuestion.wanswers[0])
+                AnsButton2.setText(gameModel.currentQuestion.wanswers[1])
+                AnsButton3.setText(gameModel.currentQuestion.wanswers[2])
+                AnsButton4.setText(gameModel.currentQuestion.wanswers[3])
+            }
         }
 
         if (gameModel.finished) {
@@ -305,6 +363,32 @@ class Game : AppCompatActivity() {
         }
     }
 
+    fun saveQuestions() {
+        var currentUser = db.userDao().getCurrentUser()
+        currentUser.questids = ""
+        currentUser.qcolors = ""
+        currentUser.answers = ""
+        currentUser.buttonsstatus = ""
+        if (currentUser.playing == 0) {
+            gameModel.inGameQuestions.forEach{
+                currentUser.questids += it.resID.toString() + " "
+                currentUser.qcolors += it.qcolor + " "
+                currentUser.answers += it.wanswers.joinToString(",") + " "
+                currentUser.buttonsstatus += it.butanswered.joinToString(",") + " "
+                currentUser.playing = 1
+                db.userDao().updateUser(currentUser)
+            }
+        } else {
+            gameModel.newInGameQuestions.forEach {
+                currentUser.questids += it.resID.toString() + " "
+                currentUser.qcolors += it.qcolor + " "
+                currentUser.answers += it.wanswers.joinToString(",") + " "
+                currentUser.buttonsstatus += it.butanswered.joinToString(",") + " "
+                db.userDao().updateUser(currentUser)
+            }
+        }
+    }
+
     override fun onBackPressed() {
         val dialog = AlertDialog.Builder(this)
         val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
@@ -314,33 +398,28 @@ class Game : AppCompatActivity() {
         dialog.setCancelable(false)
         dialog.setNegativeButton("NO", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
         dialog.setPositiveButton("YES", { dialogInterface: DialogInterface, i: Int ->
-            var currentUser = db.userDao().getCurrentUser()
-            currentUser.questids = ""
-            currentUser.qcolors = ""
-            currentUser.answers = ""
-            currentUser.buttonsstatus = ""
-            gameModel.inGameQuestions.forEach{
-                currentUser.questids += it.resID.toString() + " "
-                currentUser.qcolors += it.qcolor + " "
-                currentUser.answers += it.wanswers.joinToString(",") + " "
-                currentUser.buttonsstatus += it.butanswered.joinToString(",") + " "
-                currentUser.playing = 1
-                db.userDao().updateUser(currentUser)
-            }
+            saveQuestions()
             super.onBackPressed()})
         dialog.show()
     }
 
     fun onAnswerClick(view: View){
+        var currentUser = db.userDao().getCurrentUser()
         val selAnswer = view as Button
         gameModel.Aquestions++
         if(selAnswer.text == getText(gameModel.currentQuestion.answer)){
+            if (currentUser.playing == 1) {
+                gameModel.newCurrentQuestion.qcolor = "#008000"
+            }
             gameModel.currentQuestion.qcolor = "#008000"
             questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
             gameModel.totalScore++
 
         }
         else{
+            if (currentUser.playing == 1) {
+                gameModel.newCurrentQuestion.qcolor = "#e30118"
+            }
             gameModel.currentQuestion.qcolor = "#e30118"
             questionText.setTextColor(Color.parseColor(gameModel.currentQuestion.qcolor))
         }
@@ -379,6 +458,11 @@ class Game : AppCompatActivity() {
                 final_image.setImageResource(R.drawable.result4)
             }
             gameModel.finished = true
+
+            var currentUser = db.userDao().getCurrentUser()
+            currentUser.playing = 0
+            db.userDao().updateUser(currentUser)
+
             dialog.setView(dialogView)
             dialog.setCancelable(false)
             dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
