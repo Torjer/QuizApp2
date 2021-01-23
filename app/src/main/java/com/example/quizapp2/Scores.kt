@@ -6,13 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.View.INVISIBLE
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp2.db.Player
 import kotlinx.android.synthetic.main.activity_scores.*
+import kotlinx.android.synthetic.main.rv_item.*
 
 class Scores : AppCompatActivity() {
 
@@ -42,11 +45,14 @@ class Scores : AppCompatActivity() {
             }
         }
 
+
         private lateinit var spinOptions : Spinner
         private lateinit var spinUser : Spinner
 
     }
     val order_list = arrayOf("Score","Date")
+    var globalscore:Int = 0
+    var globalscoreL= mutableListOf<Player>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +66,7 @@ class Scores : AppCompatActivity() {
         val fullUser  = userinfoList!!.toMutableList()
         fullUser.add(0,"All users")
         val userList = fullUser.distinct()
+
         spinOptions = findViewById(R.id.order_spinner)
         spinUser= findViewById(R.id.userselect_spinner)
 
@@ -75,20 +82,19 @@ class Scores : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 if(position == 0) {
-                    savedState  = playersList.sortedByDescending{it.score}
                     orderBy = orderBy.sortedByDescending{it.score}
+                    savedState  = playersList.sortedByDescending{it.score}
                     recyclerView.adapter= PlayersAdapter(orderBy)
                     viewAdapter.notifyDataSetChanged()}
                 else{
-                    savedState  = playersList.sortedByDescending{it.gamedate}
                     orderBy = orderBy.sortedByDescending{it.gamedate}
+                    savedState  = playersList.sortedByDescending{it.gamedate}
                     recyclerView.adapter= PlayersAdapter(orderBy)
                     viewAdapter.notifyDataSetChanged()
                 }
             }
 
         }
-
 
 
         spinUser.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -103,16 +109,41 @@ class Scores : AppCompatActivity() {
                     orderBy.forEach{
                         if(spinUser.selectedItem.toString() == it.name){
                             userScore.add(it)
+                            orderBy = userScore
+                            hhints_text.isVisible = true
+                            hdate_text.isVisible = true
+                            spinOptions.isEnabled = true
+                            recyclerView.adapter = PlayersAdapter(orderBy)
+                            viewAdapter.notifyDataSetChanged()
+
                         }
                         else if(spinUser.selectedItem.toString() == "All users"){
                             userScore = savedState.toMutableList()
+                            hhints_text.isVisible = false
+                            hdate_text.isVisible = false
+                            spinOptions.isEnabled = false
+                           //spinOptions.isClickable = false
+                           //spinOptions.isFocusable = false
+
+
+                            userList.subList(1,userList.size).forEach { view->
+                                globalscore = 0
+                                orderBy.forEach {
+                                    if (view ==  it.name){
+                                        globalscore = globalscore + it.score }
+                                }
+                                val player = Player(0, view, " ", globalscore, false)
+                                globalscoreL.add(player)
+                            }
+                            globalscoreL = globalscoreL.sortedByDescending{it.score}.toMutableList()
+                            recyclerView.adapter= ScoresAdapter(globalscoreL.distinct())
+                            viewAdapter.notifyDataSetChanged()
                         }
-                        orderBy = userScore
-                        recyclerView.adapter= PlayersAdapter(orderBy)
-                        viewAdapter.notifyDataSetChanged()
                     }
                 }
                 else{
+                    hhints_text.isVisible = true
+                    hdate_text.isVisible = true
                     orderBy = playersList.sortedByDescending { it.score }
                     recyclerView.adapter= PlayersAdapter(orderBy)
                     viewAdapter.notifyDataSetChanged()

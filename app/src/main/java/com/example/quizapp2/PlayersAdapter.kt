@@ -14,7 +14,6 @@ class PlayersAdapter(private val playersList: List<Player>) : RecyclerView.Adapt
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersAdapter.PlayersHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
         return PlayersHolder(view)
-
     }
 
     override fun onBindViewHolder(holder: PlayersHolder, position: Int) {
@@ -32,6 +31,25 @@ class PlayersAdapter(private val playersList: List<Player>) : RecyclerView.Adapt
     }
 
     override fun getItemCount() = playersList.size
+
+
+}
+
+class ScoresAdapter(private val scoresList: List<Player>) : RecyclerView.Adapter<ScoresAdapter.ScoresHolder>(){
+
+    class ScoresHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScoresAdapter.ScoresHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_item2, parent, false)
+        return ScoresHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ScoresHolder, position: Int) {
+        holder.view.findViewById<TextView>(R.id.name2_text).text = scoresList[position].name
+        holder.view.findViewById<TextView>(R.id.score2_text).text = scoresList[position].score.toString()
+    }
+
+    override fun getItemCount() = scoresList.size
 
 
 }
