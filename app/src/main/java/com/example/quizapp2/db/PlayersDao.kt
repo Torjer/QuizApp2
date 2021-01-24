@@ -16,6 +16,9 @@ interface PlayerDao {
     @Query("INSERT INTO scoresInfo(username,date,score,hints) VALUES(:username, :date, :score, :hints)")
     fun insertInfo(username:String, date:String, score:Int, hints:Boolean)
 
+    @Query("DELETE FROM scoresInfo WHERE username LIKE :text")
+    fun deleteScore(text: String)
+
     @Insert
     fun insertPlayer(player: Player)
 

@@ -180,6 +180,7 @@ class MainActivity : AppCompatActivity() {
                         deleted.forEach{
                             if(db.userDao().getUsers(it).id >= 0) {
                                 db.gameConfigDao().deleteOptions(db.userDao().getUsers(it).id)
+                                db.playerDao().deleteScore(it)
                             }
                             db.userDao().deleteUser(it)
                         }
