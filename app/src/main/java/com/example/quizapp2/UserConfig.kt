@@ -64,7 +64,6 @@ class UserConfig : AppCompatActivity() {
             val dialog = AlertDialog.Builder(this)
             val dialogLayout = layoutInflater.inflate(R.layout.add_user_layout, null)
             val editText = dialogLayout.findViewById<EditText>(R.id.new_user)
-
             with(dialog){
                 setTitle("Add username")
                 setPositiveButton("OK"){dialog, which ->

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -196,6 +198,21 @@ class MainActivity : AppCompatActivity() {
                             }
                             else{db.userDao().updateUser(it.id,0)}
                         }
+
+                        if(db.gameConfigDao().getSelectedOptions(db.userDao().getUsers(SelUser).id).active==1) {
+                            val dialog = AlertDialog.Builder(this)
+                            with(dialog) {
+                                dialog.setTitle("Do you want to continue your last game?")
+                                setPositiveButton("Yes") { dialog, which ->
+                                    dialog.dismiss()
+                                }
+                                setNegativeButton("No") { dialog, which ->
+                                    db.gameConfigDao().updateOptions(db.userDao().getUsers(SelUser).id, 0)
+                                }
+                                show()
+                            }
+                        }
+
                         active_user.text = "Active user: " + SelUser
                         playButton.isEnabled = true
                         setButton.isEnabled = true
