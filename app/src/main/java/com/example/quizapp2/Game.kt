@@ -421,7 +421,7 @@ class Game : AppCompatActivity() {
             }
             gameModel.finished = true
             db.gameConfigDao().updateOptions(db.userDao().getUsers(selected).id, 0)
-            db.playerDao().insertInfo(selected, db.userDao().getUsers(selected).username, displayCurrentDate(), gameModel.totalScore, gameModel.usedHints>=1)
+            db.playerDao().insertInfo(db.userDao().getUsers(selected).username, displayCurrentDate(), gameModel.totalScore, gameModel.usedHints>=1)
             dialog.setView(dialogView)
             dialog.setCancelable(false)
             dialog.setPositiveButton("OK") { dialogInterface: DialogInterface, i: Int ->

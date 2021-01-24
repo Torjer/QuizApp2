@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
 
 data class Player
     (
-    @PrimaryKey @ColumnInfo(name = "userid") val userid:Int,
+    @PrimaryKey(autoGenerate = true)@ColumnInfo(name = "userid") val userid:Int,
     @ColumnInfo(name = "username") val name:String,
     @ColumnInfo(name = "date") val gamedate:String,
     @ColumnInfo(name = "score") val score: Int,
