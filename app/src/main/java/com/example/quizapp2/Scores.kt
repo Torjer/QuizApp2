@@ -172,7 +172,6 @@ class Scores : AppCompatActivity() {
             setHasFixedSize(true)
 
             layoutManager = LinearLayoutManager(this@Scores)
-
             adapter = viewAdapter
         }
 
