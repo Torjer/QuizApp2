@@ -51,6 +51,7 @@ class Game : AppCompatActivity() {
     lateinit var tvQuestionNumber : TextView
     lateinit var tvHint : TextView
     lateinit var db : AppDatabase
+    private var selected = 0
 
     val gameModel: GameModel by viewModels()
 
@@ -117,7 +118,7 @@ class Game : AppCompatActivity() {
         setContentView(R.layout.activity_game)
 
         gameModel.selCategories = intent.getStringExtra(EXTRA_CATEGORIES_TEXT).toString().split(",").map { it.trim() }
-        val selected = intent.getIntExtra(EXTRA_SELECTED_USER, 0)
+        selected = intent.getIntExtra(EXTRA_SELECTED_USER, 0)
 
         db = Room.databaseBuilder(
             applicationContext,
@@ -192,7 +193,6 @@ class Game : AppCompatActivity() {
             gameModel.firstTime = false
             gameModel.shuffleQuestions()
             gameModel.inGameQuestions.forEach {
-                //val id = db.inGameQDao().getQLastId().qID
                 wansString = it.wanswers.joinToString()
                 butansString = it.butanswered.joinToString()
                 db.inGameQDao().addInGameQ(gameModel.currentQuestionIndex,it.category,selected,it.resID,it.answer, it.qcolor, wansString,butansString)
@@ -216,7 +216,6 @@ class Game : AppCompatActivity() {
             }
             gameModel.inGameQuestions = recover
             gameModel.currentQuestionIndex = db.inGameQDao().getInGameQ(selected)[0].cIndex
-//
         }
 
         tvQuestionNumber.text = (gameModel.currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
@@ -340,6 +339,15 @@ class Game : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this)
         val dialogView = layoutInflater.inflate(R.layout.score_dialog, null)
         var final_score = dialogView.findViewById<TextView>(R.id.tv_score)
+        val inGameData = db.inGameQDao().getInGameQ(selected)
+        var i = 0
+        inGameData.forEach {
+            db.inGameQDao().updateInGameQ(gameModel.currentQuestionIndex,gameModel.inGameQuestions[i].category,
+                gameModel.inGameQuestions[i].resID,gameModel.inGameQuestions[i].answer, gameModel.inGameQuestions[i].qcolor,
+                gameModel.inGameQuestions[i].wanswers.joinToString(), gameModel.inGameQuestions[i].butanswered.joinToString(), it.qID)
+            i++
+        }
+
         final_score.text = "¿Do you want to exit?"
         dialog.setView(dialogView)
         dialog.setCancelable(false)
