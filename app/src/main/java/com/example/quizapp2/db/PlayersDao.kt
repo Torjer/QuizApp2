@@ -18,4 +18,10 @@ interface PlayerDao {
 
     @Insert
     fun insertPlayer(player: Player)
+
+    @Query("SELECT * FROM scoresInfo ORDER BY score DESC, hints ASC")
+    fun getScoresDesc() : List<Player>
+
+    @Query("SELECT * FROM scoresInfo ORDER BY userid DESC")
+    fun getScoreIdDesc() : List<Player>
 }

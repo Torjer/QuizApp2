@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserConfig"></activity>
-        <activity android:name=".Scores"/>
+        <activity android:name=".TopScores"></activity>
+        <activity android:name=".UserConfig" />
+        <activity android:name=".Scores" />
         <activity android:name=".Game" />
         <activity android:name=".Options" />
         <activity android:name=".MainActivity">

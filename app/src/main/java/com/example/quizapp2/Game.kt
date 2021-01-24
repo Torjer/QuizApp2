@@ -426,6 +426,8 @@ class Game : AppCompatActivity() {
             dialog.setCancelable(false)
             dialog.setPositiveButton("OK") { dialogInterface: DialogInterface, i: Int ->
                 gameModel.finished = false
+                val intent = Intent(this, TopScores::class.java)
+                startActivity(intent)
                 finish()
             }
             dialog.show()
