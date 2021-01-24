@@ -215,6 +215,20 @@ class GameModel : ViewModel() {
         return temp
     }
 
+    fun getmultipliers(dif: Int){
+        when(dif){
+            0 ->{
+                scoreMultplier=1
+            }
+            1-> {
+                scoreMultplier = 2
+            }
+            2->{
+                scoreMultplier=3
+            }
+        }
+    }
+
     fun hintsPerQ(diff:Int){
         when(diff){
             0-> HPQ = 1

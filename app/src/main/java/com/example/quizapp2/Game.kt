@@ -18,6 +18,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.quizapp2.db.AppDatabase
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class Game : AppCompatActivity() {
@@ -52,7 +54,6 @@ class Game : AppCompatActivity() {
     lateinit var tvHint : TextView
     lateinit var db : AppDatabase
     private var selected = 0
-
     val gameModel: GameModel by viewModels()
 
     private fun isAnswered(quest: Question){
@@ -111,6 +112,13 @@ class Game : AppCompatActivity() {
         } else if (AnsButton4.text == getText(gameModel.currentQuestion.answer)) {
             AnsButton4.callOnClick()
         }
+    }
+
+    private fun displayCurrentDate(): String {
+        val now = LocalDate.now()
+        var formatter =  DateTimeFormatter .ofPattern("yyyy-MM-dd")
+
+        return  formatter.format(now).toString()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -195,13 +203,13 @@ class Game : AppCompatActivity() {
             gameModel.inGameQuestions.forEach {
                 wansString = it.wanswers.joinToString()
                 butansString = it.butanswered.joinToString()
-                db.inGameQDao().addInGameQ(gameModel.currentQuestionIndex,it.category,selected,it.resID,it.answer, it.qcolor, wansString,butansString)
+                db.inGameQDao().addInGameQ(gameModel.currentQuestionIndex, gameModel.Aquestions, gameModel.totalScore, it.category,selected,it.resID,it.answer, it.qcolor, wansString,butansString)
             }
         }
         else{
-
             var recover = mutableListOf<Question>()
             db.inGameQDao().getInGameQ(selected).forEach { view ->
+                var temp = mutableListOf<Int>()
                 val wanswer = mutableListOf<Int>()
                 view.wanswer.split(",").map { it.trim() }.forEach { item ->
                     wanswer.add(item.toInt())
@@ -213,9 +221,13 @@ class Game : AppCompatActivity() {
                 }
                 val question = Question(view.category,view.resID,view.answer,view.qcolor,wanswer,butanswer)
                 recover.add(question)
+                gameModel.getmultipliers(difSet)
             }
+
             gameModel.inGameQuestions = recover
             gameModel.currentQuestionIndex = db.inGameQDao().getInGameQ(selected)[0].cIndex
+            gameModel.Aquestions = db.inGameQDao().getInGameQ(selected)[0].aquestions
+            gameModel.totalScore = db.inGameQDao().getInGameQ(selected)[0].cScore
         }
 
         tvQuestionNumber.text = (gameModel.currentQuestionIndex + 1).toString() + "/" + intent.getIntExtra(EXTRA_QUESTION_NUMBERS,5)
@@ -342,7 +354,7 @@ class Game : AppCompatActivity() {
         val inGameData = db.inGameQDao().getInGameQ(selected)
         var i = 0
         inGameData.forEach {
-            db.inGameQDao().updateInGameQ(gameModel.currentQuestionIndex,gameModel.inGameQuestions[i].category,
+            db.inGameQDao().updateInGameQ(gameModel.currentQuestionIndex,gameModel.Aquestions,gameModel.totalScore,gameModel.inGameQuestions[i].category,
                 gameModel.inGameQuestions[i].resID,gameModel.inGameQuestions[i].answer, gameModel.inGameQuestions[i].qcolor,
                 gameModel.inGameQuestions[i].wanswers.joinToString(), gameModel.inGameQuestions[i].butanswered.joinToString(), it.qID)
             i++
@@ -408,10 +420,17 @@ class Game : AppCompatActivity() {
                 final_image.setImageResource(R.drawable.result4)
             }
             gameModel.finished = true
+            db.gameConfigDao().updateOptions(db.userDao().getUsers(selected).id, 0)
+            db.playerDao().insertInfo(selected, db.userDao().getUsers(selected).username, displayCurrentDate(), gameModel.totalScore, gameModel.usedHints>=1)
             dialog.setView(dialogView)
             dialog.setCancelable(false)
-            dialog.setPositiveButton("OK", { dialogInterface: DialogInterface, i: Int ->  gameModel.finished = false})
+            dialog.setPositiveButton("OK") { dialogInterface: DialogInterface, i: Int ->
+                gameModel.finished = false
+                finish()
+            }
             dialog.show()
+
         }
     }
+
 }

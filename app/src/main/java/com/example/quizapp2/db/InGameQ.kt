@@ -12,6 +12,8 @@ data class InGameQ
     (
     @PrimaryKey(autoGenerate = true)@ColumnInfo(name = "qId") val qID:Int,
     @ColumnInfo(name = "cIndex") val cIndex:Int,
+    @ColumnInfo(name = "aquestions") val aquestions:Int,
+    @ColumnInfo(name = "cScore") val cScore:Int,
     @ColumnInfo(name = "category") val category: String,
     @ColumnInfo(name = "userid") val userid:Int,
     @ColumnInfo(name = "resID") val resID:Int,

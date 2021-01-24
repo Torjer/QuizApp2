@@ -16,6 +16,9 @@ interface GameConfigDao {
     @Query("UPDATE options SET category = :category, difficulty = :difficulty, eqn= :eqn, hints= :hints, active= :active WHERE id= :id" )
     fun updateOptions(id: Int, category:String, difficulty:Int, eqn:Int, hints:Int, active:Int)
 
+    @Query("UPDATE options SET active= :active WHERE id= :id" )
+    fun updateOptions(id: Int, active:Int)
+
     @Query("DELETE FROM options WHERE id = :id")
     fun deleteOptions(id: Int)
 }

@@ -45,12 +45,6 @@ class MainActivity : AppCompatActivity() {
     //private lateinit var dao : usersDao()
     val gameModel: GameModel by viewModels()
 
-    fun displayCurrentDate(): String {
-        val now = LocalDate.now()
-        var formatter =  DateTimeFormatter .ofPattern("yyyy-MM-dd")
-
-        return  formatter.format(now).toString()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
